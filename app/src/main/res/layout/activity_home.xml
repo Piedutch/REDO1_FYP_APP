@@ -22,7 +22,7 @@
         android:layout_marginLeft="83dp"
         android:layout_marginTop="316dp"
         android:textSize="20sp"
-        android:text="Home"
+        android:text="@string/home"
         android:textColor="#FFFFFF"/>
 
     <!--vertical-->
@@ -50,7 +50,7 @@
         android:layout_marginLeft="225dp"
         android:layout_marginTop="316dp"
         android:textSize="20sp"
-        android:text="Alerts"
+        android:text="@string/alerts"
         android:textColor="#FFFFFF"/>
 
     <!--horizontal-->
@@ -78,7 +78,7 @@
         android:layout_marginLeft="75dp"
         android:layout_marginTop="455dp"
         android:textSize="20sp"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textColor="#FFFFFF"/>
 
     <!--vertical-->
@@ -106,7 +106,7 @@
         android:layout_marginLeft="225dp"
         android:layout_marginTop="455dp"
         android:textSize="20sp"
-        android:text="Search"
+        android:text="@string/search"
         android:textColor="#FFFFFF"/>
 
     <!--horizontal-->
@@ -119,11 +119,11 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/overview_alerts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="There are a total of 9 alerts today."
+        android:text="@string/alert_overview"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
@@ -135,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="TO OSTIARIUS"
+        android:text="@string/to_ostiarius"
         android:textColor="#CDCDCD"
         android:textSize="24sp"
         android:layout_below="@+id/textView4"
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="WELCOME"
+        android:text="@string/welcome"
         android:textColor="#848484"
         android:fontFamily="sadsad"
         android:textSize="40sp"
