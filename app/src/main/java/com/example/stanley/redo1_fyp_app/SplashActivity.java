@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SplashActivity extends Activity {
+    // changing up some things
     ProgressBar androidProgressBar;
     int progressStatusCounter = 0;
     TextView textView10;
