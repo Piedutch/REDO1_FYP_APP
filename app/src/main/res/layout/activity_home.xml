@@ -127,23 +127,23 @@
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/to_ostiarius"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/to_ostiarius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/to_ostiarius"
         android:textColor="#CDCDCD"
         android:textSize="24sp"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/welcome"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
