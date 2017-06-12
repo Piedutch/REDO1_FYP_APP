@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left"
+        android:onClick="scrollToTop"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="228dp"
+        android:src="@drawable/home"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/clickhome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="83dp"
+        android:layout_marginTop="316dp"
+        android:textSize="20sp"
+        android:text="Home"
+        android:textColor="#FFFFFF"/>
+
+    <!--vertical-->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="115dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="218dp"
+        android:background="@color/line"/>
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left"
+        android:onClick="scrollToTop"
+        android:layout_marginLeft="213dp"
+        android:layout_marginTop="228dp"
+        android:src="@drawable/alerts"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/clickalerts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="316dp"
+        android:textSize="20sp"
+        android:text="Alerts"
+        android:textColor="#FFFFFF"/>
+
+    <!--horizontal-->
+    <View
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="353dp"
+        android:layout_marginLeft="200dp"
+        android:background="@color/line"/>
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left"
+        android:onClick="scrollToTop"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="373dp"
+        android:src="@drawable/settings"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/clicksettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="455dp"
+        android:textSize="20sp"
+        android:text="Settings"
+        android:textColor="#FFFFFF"/>
+
+    <!--vertical-->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="115dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="370dp"
+        android:background="@color/line"/>
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left"
+        android:onClick="scrollToTop"
+        android:layout_marginLeft="213dp"
+        android:layout_marginTop="373dp"
+        android:src="@drawable/search"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/clicksearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="455dp"
+        android:textSize="20sp"
+        android:text="Search"
+        android:textColor="#FFFFFF"/>
+
+    <!--horizontal-->
+    <View
+        android:layout_width="105dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="353dp"
+        android:layout_marginLeft="57dp"
+        android:background="@color/line"/>
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="There are a total of 9 alerts today."
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="TO OSTIARIUS"
+        android:textColor="#CDCDCD"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="WELCOME"
+        android:textColor="#848484"
+        android:fontFamily="sadsad"
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <!--android:layout_marginTop="12dp"-->
+</RelativeLayout>
