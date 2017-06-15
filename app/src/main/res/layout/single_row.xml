@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:src="@drawable/alerticon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Alert!!!"
+        android:id="@+id/textviewtitle"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_alignParentRight="true"/>
+
+<!--    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2:55pm"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignBaseline="@+id/textviewtitle"
+        android:layout_alignBottom="@+id/textviewtitle"
+        android:layout_toEndOf="@+id/taptoview" />-->
+    <TextClock
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignBaseline="@+id/textviewtitle"
+        android:layout_alignBottom="@+id/textviewtitle"
+        android:layout_toEndOf="@+id/taptoview"
+        android:format24Hour="h:mm a"/>
+
+    <!--
+
+    -->
+
+    <TextView
+        android:id="@+id/taptoview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/description"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="6dp"
+        android:text="tap to view"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textviewtitle"
+        android:layout_below="@+id/imageView"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

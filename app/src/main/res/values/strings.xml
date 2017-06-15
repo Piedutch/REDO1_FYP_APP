@@ -14,4 +14,18 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string-array name="titles">
+        <item>Alert!</item>
+        <item>Alert!</item>
+        <item>Alert!</item>
+        <item>Alert!</item>
+        <item>Alert!</item>
+    </string-array>
+    <string-array name="description">
+        <item>DSLR Camera, Item #2509 has left the room.</item>
+        <item>MacBook – Apple, Item #1143 has left the room.</item>
+        <item>LG Smart TV, Item #5548 has left the room.</item>
+        <item>Nikon D5300, Item #2968 has left the room.</item>
+        <item>Camera Stand, Item #8194 has left the room.</item>
+    </string-array>
 </resources>
