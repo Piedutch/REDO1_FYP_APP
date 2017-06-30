@@ -34,7 +34,13 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".AlertsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:theme="@style/ActionBarWithSearch">
+            <meta-data
+                android:name="name.app.searchable"
+                android:resource="@xml/searchable">
+            </meta-data>
         </activity>
     </application>
 
