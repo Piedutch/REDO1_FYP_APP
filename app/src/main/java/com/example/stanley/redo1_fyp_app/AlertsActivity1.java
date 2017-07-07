@@ -1,5 +1,18 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -35,17 +48,11 @@ import java.util.HashMap;
 import java.util.concurrent.RunnableFuture;
 
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.TextureView;
-import android.widget.TextView;
 
-import static android.R.id.list;
+public class AlertsActivity1 extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-public class AlertsActivity extends AppCompatActivity{
-
-    private String TAG = AlertsActivity.class.getSimpleName();
+    private String TAG = MainActivity.class.getSimpleName();
 
     private ProgressDialog pDialog;
     private ListView lv;
@@ -58,25 +65,24 @@ public class AlertsActivity extends AppCompatActivity{
 
     private SimpleAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alerts);
-
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // toolbar.setTitle("Home");
-      //  setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_alerts1);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title1);
+        mTitle.setText("Alerts");
+        //  toolbar.setTitle("Yo it works");
+        setSupportActionBar(toolbar);
 
         contactList = new ArrayList<>();
 
-        lv = (ListView) findViewById(R.id.listView_alerts);
+        lv = (ListView) findViewById(R.id.listView_alerts1);
 
         new GetContacts().execute();
 
-        // EditText search = (EditText) findViewById(R.id.searchFilter);
 
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipelayout);
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -86,7 +92,7 @@ public class AlertsActivity extends AppCompatActivity{
                     @Override
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
-                        Intent myIntent = new Intent(getApplicationContext(),AlertsActivity.class);
+                        Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
                         finish();
                         startActivity(myIntent);
                     }
@@ -97,7 +103,7 @@ public class AlertsActivity extends AppCompatActivity{
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==position){
-                    Toast.makeText(AlertsActivity.this,""+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlertsActivity1.this,""+position, Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(getApplicationContext(),PicNDescActivity.class);
                     //   Intent myIntent = new Intent(this, PicNDescActivity.class);
                     TextView asset = (TextView)view.findViewById(R.id.asset);  //initialize text view withid label
@@ -117,24 +123,17 @@ public class AlertsActivity extends AppCompatActivity{
             }
         });
 
-/*        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (MainActivity.this).adapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
-/*    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
@@ -155,13 +154,14 @@ public class AlertsActivity extends AppCompatActivity{
         });
 
         return super.onCreateOptionsMenu(menu);
-    }*/
+    }
+
     private class GetContacts extends AsyncTask<Void, Void, Void>{
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
             //show loading dialog
-            pDialog = new ProgressDialog(AlertsActivity.this);
+            pDialog = new ProgressDialog(AlertsActivity1.this);
             pDialog.setMessage("loading...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -221,7 +221,7 @@ public class AlertsActivity extends AppCompatActivity{
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(AlertsActivity.this,
+                            Toast.makeText(AlertsActivity1.this,
                                     "JSON parsing error: " + e.getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -232,7 +232,7 @@ public class AlertsActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(AlertsActivity.this,
+                        Toast.makeText(AlertsActivity1.this,
                                 "Couldn't get json from server.",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -250,12 +250,67 @@ public class AlertsActivity extends AppCompatActivity{
             }
             //updating json data to listview
             adapter = new SimpleAdapter(
-                    AlertsActivity.this, contactList,
+                    AlertsActivity1.this, contactList,
                     R.layout.list_item, new String[]{"time","item_name","asset_no"},
                     new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset});
             lv.setAdapter(adapter);
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
+/*    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+/*        if (id == R.id.action_settings) {
+            return true;
+        }*/
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

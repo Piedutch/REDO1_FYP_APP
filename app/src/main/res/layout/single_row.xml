@@ -41,10 +41,6 @@
         android:layout_toEndOf="@+id/taptoview_alerts"
         android:format24Hour="h:mm a"/>
 
-    <!--
-
-    -->
-
     <TextView
         android:id="@+id/taptoview_alerts"
         android:layout_width="wrap_content"

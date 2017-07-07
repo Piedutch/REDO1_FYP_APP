@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:src="@drawable/alerticon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_alerts"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+    <!--
+    item_name
+    asset_no
+    time
+
+    android:text="Item #45353 have left the room"
+    -->
+
+    <TextView
+        android:id="@+id/textviewtitle_alerts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Alert!"
+        android:layout_alignTop="@+id/imageView_alerts"
+        android:layout_toRightOf="@+id/imageView_alerts"
+        android:layout_toEndOf="@+id/imageView_alerts" />
+
+
+    <TextView
+        android:id="@+id/description_alerts"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ddddd"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/asset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dddd"
+        android:layout_below="@+id/description_alerts"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/taptoview_alerts"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tap to view"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/timestamp_alerts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1:30pm"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignBaseline="@+id/textviewtitle_alerts"
+        android:layout_alignBottom="@+id/textviewtitle_alerts"
+        android:layout_toRightOf="@+id/textviewtitle_alerts"
+        android:layout_toEndOf="@+id/textviewtitle_alerts"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name: "
+        android:layout_below="@+id/textviewtitle_alerts"
+        android:layout_alignLeft="@+id/textviewtitle_alerts"
+        android:layout_alignStart="@+id/textviewtitle_alerts" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asset No: "
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=", is taken out!"
+        android:layout_alignBaseline="@+id/asset"
+        android:layout_alignBottom="@+id/asset"
+        android:layout_toRightOf="@+id/asset"
+        android:layout_toEndOf="@+id/asset" />
+
+
+</RelativeLayout>

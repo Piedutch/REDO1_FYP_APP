@@ -49,15 +49,16 @@ public class HomeActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.alertsicon:
-                startActivity(new Intent(this, AlertsActivity.class));
+                startActivity(new Intent(this, AlertsActivity1.class));
                 break;
 
             case R.id.clickalerts:
-                startActivity(new Intent(this, AlertsActivity.class));
+                startActivity(new Intent(this, AlertsActivity1.class));
                 break;
 
             case R.id.settingsicon:
 //                startActivity(new Intent(this, SettingsActivity.class));
+                startActivity(new Intent(this, TestActivity.class));
                 break;
 
             case R.id.clicksettings:

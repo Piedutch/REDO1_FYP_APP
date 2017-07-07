@@ -5,9 +5,93 @@
 
     <ImageView
         android:id="@+id/phone_icon"
-        android:layout_width="750px"
+        android:layout_width="1500px"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/theft"/>
+        android:src="@drawable/theft"
+        />
+<!--android:src="@drawable/theft"-->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="1dp"
+        android:textSize="28sp"
+        android:text="Description"
+        android:textColor="#FFFFFF"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="-15dp"
+        android:layout_marginLeft="280dp"
+        android:background="@color/textColorPrimary"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="-3dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/textColorPrimary"/>
+
+    <TextView
+        android:id="@+id/itemidheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="35dp"
+        android:textSize="20sp"
+        android:text="ITEM ID:"
+        android:textColor="@color/itemheader"/>
+
+    <TextView
+        android:id="@+id/itemid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="1dp"
+        android:textSize="20sp"
+        android:text="#5548"
+        android:textColor="@color/textColorPrimary"/>
+
+    <TextView
+        android:id="@+id/itemnameheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="35dp"
+        android:textSize="20sp"
+        android:text="ITEM NAME:"
+        android:textColor="@color/itemheader"/>
+    <TextView
+        android:id="@+id/itemname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="1dp"
+        android:textSize="20sp"
+        android:text="LG Smart TV"
+        android:textColor="@color/textColorPrimary"/>
+
+    <TextView
+        android:id="@+id/timestampheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="35dp"
+        android:textSize="20sp"
+        android:text="TIMESTAMP:"
+        android:textColor="@color/itemheader"/>
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="1dp"
+        android:textSize="20sp"
+        android:text="4/5/2017  3:39pm"
+        android:textColor="@color/textColorPrimary"/>
 
 </LinearLayout>
