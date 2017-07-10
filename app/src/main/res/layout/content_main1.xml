@@ -19,11 +19,12 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/listView_alerts1"
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true">
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
 
 </android.support.v4.widget.SwipeRefreshLayout>
