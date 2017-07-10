@@ -7,6 +7,9 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 /**
  * Created by Stanley on 9/6/2017.
  */
@@ -36,6 +39,9 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         searchicon.setOnClickListener(this);
         View searchtext = findViewById(R.id.clicksearch);
         searchtext.setOnClickListener(this);
+
+//        FirebaseMessaging.getInstance().subscribeToTopic("test");
+//        FirebaseInstanceId.getInstance().getToken();
     }
 
     @Override
