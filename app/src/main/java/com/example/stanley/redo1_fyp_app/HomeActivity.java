@@ -2,8 +2,11 @@ package com.example.stanley.redo1_fyp_app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import static android.provider.LiveFolders.INTENT;
 
 /**
  * Created by Stanley on 9/6/2017.
@@ -66,7 +69,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.searchicon:
-//                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, StreamingActivity.class));
                 break;
 
             case R.id.clicksearch:
