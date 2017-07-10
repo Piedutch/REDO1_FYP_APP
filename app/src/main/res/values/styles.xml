@@ -30,4 +30,14 @@
 
     <style name="ActionBarWithSearch" parent="Base.AlertDialog.AppCompat"/>
 
+    <style name="YourDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!--        <item name="android:colorAccent">@color/colorAccent</item>
+                <item name="textColor">@color/colorAccent</item>
+                <item name="textColorPrimary">@color/colorPrimaryDark</item>-->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

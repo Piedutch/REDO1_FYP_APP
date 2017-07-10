@@ -102,5 +102,24 @@
         android:layout_toRightOf="@+id/asset"
         android:layout_toEndOf="@+id/asset" />
 
+    <TextView
+        android:id="@+id/alert_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView5"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alert_no"
+        android:layout_alignLeft="@+id/alert_no"
+        android:layout_alignStart="@+id/alert_no"
+        android:visibility="invisible"/>
+
 
 </RelativeLayout>

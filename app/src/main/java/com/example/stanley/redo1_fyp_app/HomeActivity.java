@@ -58,7 +58,6 @@ public class HomeActivity extends Activity implements View.OnClickListener{
 
             case R.id.settingsicon:
 //                startActivity(new Intent(this, SettingsActivity.class));
-                startActivity(new Intent(this, TestActivity.class));
                 break;
 
             case R.id.clicksettings:

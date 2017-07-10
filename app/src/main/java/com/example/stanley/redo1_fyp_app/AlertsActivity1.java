@@ -1,8 +1,12 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -45,9 +49,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.RunnableFuture;
 
 import android.os.Handler;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 public class AlertsActivity1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,10 +68,15 @@ public class AlertsActivity1 extends AppCompatActivity
     private String TAG = MainActivity.class.getSimpleName();
 
     private ProgressDialog pDialog;
-    private ListView lv;
+    private String globalvar_alertno;
+    private String globalvar_itemname;
+   // private ListView lv;
+    private SwipeMenuListView lv;
+    List<String> alertnolist=new ArrayList<String>();
+    List<String> itemnamelist=new ArrayList<String>();
+    List<Integer> testlist = new ArrayList<Integer>();
 
     //URL of json
-    // private static String url = "http://api.androidhive.info/contacts/";
     private static String url = "http://128.199.75.229/alertspost.php";
 
     ArrayList<HashMap<String, String>> contactList;
@@ -77,10 +95,10 @@ public class AlertsActivity1 extends AppCompatActivity
 
         contactList = new ArrayList<>();
 
-        lv = (ListView) findViewById(R.id.listView_alerts1);
+       //lv = (ListView) findViewById(R.id.listView_alerts1);
+        lv = (SwipeMenuListView) findViewById(R.id.listView_alerts1);
 
         new GetContacts().execute();
-
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
@@ -103,23 +121,155 @@ public class AlertsActivity1 extends AppCompatActivity
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==position){
-                    Toast.makeText(AlertsActivity1.this,""+position, Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(getApplicationContext(),PicNDescActivity.class);
-                    //   Intent myIntent = new Intent(this, PicNDescActivity.class);
-                    TextView asset = (TextView)view.findViewById(R.id.asset);  //initialize text view withid label
-                    TextView descriptionalert = (TextView)view.findViewById(R.id.description_alerts);  //initialize text view withid label
-                    TextView time = (TextView)view.findViewById(R.id.timestamp_alerts);  //initialize text view withid label
-                    String asset1 = asset.getText().toString(); //get the text
-                    String descriptionalert1 = descriptionalert.getText().toString(); //get the text
-                    String time1 = time.getText().toString(); //get the text
 
+                    // get your itemnamelist here
+                    String name;
+                    for(int j  = 0; j < itemnamelist.size(); j++){
+                        if(j == position){
+                            name = itemnamelist.get(position);
+                            globalvar_itemname = name;
+                            break;
+                        }
+                    }
+
+                    //Toast.makeText(AlertsActivity1.this,""+position, Toast.LENGTH_SHORT).show();
+                    Intent myIntent = new Intent(getApplicationContext(),PicNDescActivity.class);
+                    TextView asset = (TextView)view.findViewById(R.id.asset);  //initialize text view withid label
+                    //TextView descriptionalert = (TextView)view.findViewById(R.id.description_alerts);  //initialize text view withid label
+                    TextView time = (TextView)view.findViewById(R.id.timestamp_alerts);  //initialize text view withid label
+                    TextView alert_no = (TextView)view.findViewById(R.id.alert_no);
+                    TextView date = (TextView)view.findViewById(R.id.date);
+
+                    String asset1 = asset.getText().toString(); //get the text
+                    String descriptionalert1 = globalvar_itemname; //get the text
+                    String time1 = time.getText().toString(); //get the text
+                    String alert_no1= alert_no.getText().toString();
+                    String date1 = date.getText().toString();
 
                     myIntent.putExtra("asset1",asset1);
                     myIntent.putExtra("descriptionalert1",descriptionalert1);
                     myIntent.putExtra("time1",time1);
+                    myIntent.putExtra("alert_no1",alert_no1);
+                    myIntent.putExtra("date1",date1);
 
                     startActivity(myIntent);
                 }
+            }
+        });
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(170);
+                // set a icon
+                deleteItem.setIcon(R.mipmap.ic_trash);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+        lv.setMenuCreator(creator);
+        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+
+                        for(final int item1:testlist){
+                            //System.out.println(item);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(AlertsActivity1.this,
+                                            "Toast for yes"+ item1,
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+                        final String appo;
+                        if(position==position){
+                            for(int j  = 0; j < alertnolist.size(); j++){
+                                if(j == position){
+                                    appo = alertnolist.get(position);
+                                    globalvar_alertno = appo;
+                                    break;
+                                }
+                            }
+                        }
+
+                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
+
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(AlertsActivity1.this, R.style.YourDialogStyle);
+                        a_builder.setMessage("Are you sure you want to delete this alert?").setCancelable(false)
+
+                                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //finish();
+                                        Response.Listener<String> responseListener = new Response.Listener<String>(){
+
+                                            @Override
+                                            public void onResponse(String response){
+                                                try{
+                                                    JSONObject jsonResponse = new JSONObject(response);
+                                                    boolean success = jsonResponse.getBoolean("success");
+
+                                                    if(success){
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Toast.makeText(AlertsActivity1.this,
+                                                                        "Successfully deleted!",
+                                                                        Toast.LENGTH_LONG).show();
+
+                                                                Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+                                                                finish();
+                                                                startActivity(myIntent);
+
+
+                                                            }
+                                                        });
+                                                    } else {
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Toast.makeText(AlertsActivity1.this,
+                                                                        "Not successful",
+                                                                        Toast.LENGTH_LONG).show();
+                                                            }
+                                                        });
+                                                    }
+                                                }catch (JSONException e){
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        };
+                                        DeleteAlertRequest deleteAlertRequest = new DeleteAlertRequest(globalvar_alertno, responseListener);
+                                        RequestQueue queue = Volley.newRequestQueue(AlertsActivity1.this);
+                                        queue.add(deleteAlertRequest);
+
+                                    }
+                                })
+                                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+
+                                    }
+                                });
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("Warning!");
+                        alert.show();
+                }
+                return false;
             }
         });
 
@@ -188,13 +338,17 @@ public class AlertsActivity1 extends AppCompatActivity
                         String time = c.getString("time");
                         String item_name = c.getString("item_name");
                         String asset_no = c.getString("asset_no");
-                        asset_no = asset_no;
+                        String date = c.getString("date");
+
+                        int test = c.getInt("alert_no");
+
+                        testlist.add(test);
+                        itemnamelist.add(item_name);
+
                         item_name = item_name+""; //30 will excceed //5 Fs to 28
                         if(item_name.length() > 28){
                             item_name = item_name.substring(0,28);
                         }
-
-                        //    String in_an = item_name + ", #" + asset_no + " has left the room.";
 
                         //Phone node is JSON object
 /*                        JSONObject phone = c.getJSONObject("phone");
@@ -205,13 +359,12 @@ public class AlertsActivity1 extends AppCompatActivity
                         HashMap<String, String> contact = new HashMap<>();
 
                         //adding each child node to hashmap
+                        alertnolist.add(alert_no);
                         contact.put("time",time);
-                        // contact.put("in_an",in_an);
                         contact.put("item_name",item_name);
                         contact.put("asset_no",asset_no);
-                        //  contact.put("item_name",item_name);
-                        //  contact.put("asset_no",asset_no);
-                        //       contact.put("mobile",mobile);
+                        contact.put("date",date);
+                        contact.put("alert_no",alert_no);
 
                         //adding contact to contact list
                         contactList.add(contact);
@@ -251,8 +404,8 @@ public class AlertsActivity1 extends AppCompatActivity
             //updating json data to listview
             adapter = new SimpleAdapter(
                     AlertsActivity1.this, contactList,
-                    R.layout.list_item, new String[]{"time","item_name","asset_no"},
-                    new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset});
+                    R.layout.list_item, new String[]{"time","item_name","asset_no","alert_no","date"},
+                    new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no,R.id.date});
             lv.setAdapter(adapter);
         }
     }
@@ -296,9 +449,12 @@ public class AlertsActivity1 extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            Intent myIntent = new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(myIntent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+            startActivity(myIntent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
