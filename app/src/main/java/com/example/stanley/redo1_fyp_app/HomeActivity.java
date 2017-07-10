@@ -65,7 +65,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.searchicon:
-//                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, StreamingActivity.class));
                 break;
 
             case R.id.clicksearch:
