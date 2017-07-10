@@ -173,6 +173,19 @@ public class AlertsActivity1 extends AppCompatActivity
                 deleteItem.setIcon(R.mipmap.ic_trash);
                 // add to menu
                 menu.addMenuItem(deleteItem);
+
+                // create "delete" item
+                SwipeMenuItem archiveItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                archiveItem.setBackground(new ColorDrawable(Color.rgb(0x41,
+                        0x69, 0xE1)));
+                // set item width
+                archiveItem.setWidth(170);
+                // set a icon
+                archiveItem.setIcon(R.mipmap.ic_archive);
+                // add to menu
+                menu.addMenuItem(archiveItem);
             }
         };
         lv.setMenuCreator(creator);
@@ -182,7 +195,7 @@ public class AlertsActivity1 extends AppCompatActivity
                 switch (index) {
                     case 0:
 
-                        for(final int item1:testlist){
+                        /*for(final int item1:testlist){
                             //System.out.println(item);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -192,7 +205,7 @@ public class AlertsActivity1 extends AppCompatActivity
                                             Toast.LENGTH_LONG).show();
                                 }
                             });
-                        }
+                        }*/
 
                         final String appo;
                         if(position==position){
@@ -268,6 +281,18 @@ public class AlertsActivity1 extends AppCompatActivity
                         AlertDialog alert = a_builder.create();
                         alert.setTitle("Warning!");
                         alert.show();
+                        break;
+
+                    case 1:
+                        // This is for archive
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(AlertsActivity1.this,
+                                        "Toast for Archive",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
                 }
                 return false;
             }

@@ -2,10 +2,13 @@ package com.example.stanley.redo1_fyp_app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -39,6 +42,13 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         searchicon.setOnClickListener(this);
         View searchtext = findViewById(R.id.clicksearch);
         searchtext.setOnClickListener(this);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String Date = sdf.format(new Date());
+
+            TextView overview_alerts = (TextView) findViewById(R.id.overview_alerts);
+            overview_alerts.setText(Date);
+
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("test");
 //        FirebaseInstanceId.getInstance().getToken();
