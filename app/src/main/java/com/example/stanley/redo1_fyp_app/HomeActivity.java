@@ -5,10 +5,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -50,6 +53,13 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 300, pintent);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String Date = sdf.format(new Date());
+
+            TextView overview_alerts = (TextView) findViewById(R.id.overview_alerts);
+            overview_alerts.setText(Date);
+
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("test");
 //        FirebaseInstanceId.getInstance().getToken();
