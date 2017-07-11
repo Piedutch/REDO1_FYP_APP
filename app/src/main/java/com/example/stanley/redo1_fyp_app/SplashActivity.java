@@ -49,6 +49,8 @@ public class SplashActivity extends Activity {
             }
         }).start();
 
+
+
     }
     private void startApp() {
         Intent intent = new Intent(SplashActivity.this, HomeActivity.class);//<-- This is to next activity after loading

@@ -1,6 +1,9 @@
 package com.example.stanley.redo1_fyp_app;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -39,6 +42,14 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         searchicon.setOnClickListener(this);
         View searchtext = findViewById(R.id.clicksearch);
         searchtext.setOnClickListener(this);
+
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
+        PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 300, pintent);
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("test");
 //        FirebaseInstanceId.getInstance().getToken();
