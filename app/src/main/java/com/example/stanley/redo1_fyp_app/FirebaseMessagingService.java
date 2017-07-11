@@ -32,7 +32,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setAutoCancel(true)
                 .setContentTitle("Alert!")
                 .setTicker("Alert! Watch Out!")
-                .setContentInfo("has been taken out by an offender")
+                .setContentInfo("item/item(s) have been taken out")
                 .setContentText(message)
                 .setSmallIcon(R.drawable.favicon)
                 .setContentIntent(pendingIntent)

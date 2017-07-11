@@ -52,7 +52,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 300, pintent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60000, pintent);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String Date = sdf.format(new Date());
