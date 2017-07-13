@@ -481,9 +481,11 @@ public class AlertsActivity1 extends AppCompatActivity
             Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
             startActivity(myIntent);
         } else if (id == R.id.nav_slideshow) {
-
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
         } else if (id == R.id.nav_manage) {
-
+            Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(myIntent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

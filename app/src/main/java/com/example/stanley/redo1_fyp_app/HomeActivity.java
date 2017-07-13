@@ -10,8 +10,10 @@ import java.util.Date;
 
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -21,6 +23,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
  */
 
 public class HomeActivity extends Activity implements View.OnClickListener{
+    private int refreshTime = 60000;
+    private String TAG = HomeActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +52,27 @@ public class HomeActivity extends Activity implements View.OnClickListener{
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
+
+
         Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
         PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60000, pintent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, pintent);
+        Bundle getTime = getIntent().getExtras();
+
+            if (getTime != null){
+                Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
+                refreshTime = getTime.getInt("fetchOption");
+                Log.d(TAG, "Got from bundle extras: " + refreshTime);
+            }
+            if(refreshTime!=60000){
+                alarm.cancel(pintent);
+                PendingIntent updatedIntent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager updatedAlarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                updatedAlarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, updatedIntent);
+            }
+
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String Date = sdf.format(new Date());

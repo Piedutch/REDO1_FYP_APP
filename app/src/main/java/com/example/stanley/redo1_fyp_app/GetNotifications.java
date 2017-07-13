@@ -2,6 +2,7 @@ package com.example.stanley.redo1_fyp_app;
 
 import android.app.Service;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
  * Created by jonat on 07/11/17.
  */
 
+
 public class GetNotifications extends Service {
     private String TAG = GetNotifications.class.getSimpleName();
     private boolean isRunning = false;
@@ -29,7 +31,7 @@ public class GetNotifications extends Service {
     private String asset_no;
     private Handler handler;
     private static String urlParams = "http://128.199.75.229/getlastrow.php";
-
+    private int counter = 0;
     public void onCreate() {
         isRunning = true;
         Log.d(TAG, "It comes into GetNotifications.java");
@@ -68,10 +70,9 @@ public class GetNotifications extends Service {
     }
 
     private class GetParams extends AsyncTask<Void, Void, Void> {
-
-
         @Override
         protected Void doInBackground(Void... voids) {
+            Log.d(TAG, "Initial Counter Value supposed to be 0, it is: " +counter);
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(urlParams);
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -96,8 +97,8 @@ public class GetNotifications extends Service {
                     Log.d(TAG, "Asset No is: " + asset_no);
                     Log.d(TAG, "New Alert No is: " + new_alert_no);
                     Log.d(TAG, "Old Alert No is: " + old_alert_no);
-
                     if ((new_alert_no != old_alert_no)) {
+                        if (counter != 0) {
                         Log.d(TAG, "I enter the condition");
                         Response.Listener<String> responseListener = new Response.Listener<String>() {
                             @Override
@@ -119,14 +120,22 @@ public class GetNotifications extends Service {
                                 }
                             }
                         };
-
-                        ParamRequest paramRequest = new ParamRequest(item_name, asset_no, responseListener);
+                            ParamRequest paramRequest = new ParamRequest(item_name, asset_no, responseListener);
 //                        ParamRequest paramRequest = new ParamRequest(aa, ff, responseListener);
-                        RequestQueue queue = Volley.newRequestQueue(GetNotifications.this);
-                        queue.add(paramRequest);
-                        old_alert_no = new_alert_no;
-                        Log.d(TAG, "After Change, old alert number(" + old_alert_no + ") should be same as new alert number (" + new_alert_no + ")!");
+                            RequestQueue queue = Volley.newRequestQueue(GetNotifications.this);
+                            queue.add(paramRequest);
+                            old_alert_no=new_alert_no;
+                            Log.d(TAG, "After Change, old alert number(" + old_alert_no + ") should be same as new alert number (" + new_alert_no + ")!");
+                        }else if (counter == 0){
+                            counter += 1;
+                            Log.d(TAG, "After Counter Value supposed to be 1, it is: " +counter);
+                            old_alert_no = new_alert_no;
+                            Log.d(TAG, "New Alert No in else condition is: " + new_alert_no);
+                            Log.d(TAG, "Old Alert No in else condition is: " + old_alert_no);
                     }
+
+                    }
+
 
                 } catch (final JSONException e) {
                     Log.e(TAG, "JSON parsing error: " + e.getMessage());
