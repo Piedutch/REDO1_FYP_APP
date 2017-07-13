@@ -94,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         cb4.setChecked(false);
                         cb5.setChecked(false);
                         cb6.setChecked(false);
-                        intent_value = 1000;
+                        intent_value = 1000*15;
                     }
                 });
                 break;

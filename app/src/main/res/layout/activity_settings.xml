@@ -24,7 +24,7 @@
     <Button
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Every 1 second"
+        android:text="Every 15 seconds"
         android:id="@+id/buttonOption1"
         android:layout_below="@id/desc_grabTimeTextView"
         android:layout_marginTop="10dp"

@@ -23,7 +23,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
  */
 
 public class HomeActivity extends Activity implements View.OnClickListener{
-    private int refreshTime = 60000;
+    private int old_refreshTime = 60000;
+    private int new_refreshTime = 0;
     private String TAG = HomeActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,26 +53,116 @@ public class HomeActivity extends Activity implements View.OnClickListener{
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
-
-
-        Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
-        PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
-        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, pintent);
+        Log.d(TAG, "Currently refreshTime value is: " +old_refreshTime);
         Bundle getTime = getIntent().getExtras();
-
-            if (getTime != null){
+        if (getTime != null){
+            new_refreshTime = getTime.getInt("fetchOption");
+            if(new_refreshTime==old_refreshTime){
+                Toast.makeText(getApplicationContext(), "Cannot input time interval that is the same as before!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(i);
+            }else {
                 Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
-                refreshTime = getTime.getInt("fetchOption");
-                Log.d(TAG, "Got from bundle extras: " + refreshTime);
+                Log.d(TAG, "Got from bundle extras: " + new_refreshTime);
+
+                Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
+                PendingIntent pi_opt2 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pi_opt1 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt1 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pi_opt3 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt3 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pi_opt4 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt4 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pi_opt5 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt5 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pi_opt6 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                AlarmManager alarm_opt6 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//                boolean isWorking_opt1 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+//                boolean isWorking_opt2 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+//                boolean isWorking_opt3 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+//                boolean isWorking_opt4 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+//                boolean isWorking_opt5 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+//                boolean isWorking_opt6 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
+
+
+                switch(new_refreshTime){
+                    case 60000:
+
+                        alarm_opt1.cancel(pi_opt1);
+                        alarm_opt3.cancel(pi_opt3);
+                        alarm_opt4.cancel(pi_opt4);
+                        alarm_opt5.cancel(pi_opt5);
+                        alarm_opt6.cancel(pi_opt6);
+                        alarm_opt2.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt2);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                    case 15000:
+                        alarm_opt2.cancel(pi_opt2);
+                        alarm_opt3.cancel(pi_opt3);
+                        alarm_opt4.cancel(pi_opt4);
+                        alarm_opt5.cancel(pi_opt5);
+                        alarm_opt6.cancel(pi_opt6);
+                        alarm_opt1.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt1);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                    case 300000:
+                        alarm_opt2.cancel(pi_opt2);
+                        alarm_opt1.cancel(pi_opt1);
+                        alarm_opt4.cancel(pi_opt4);
+                        alarm_opt5.cancel(pi_opt5);
+                        alarm_opt6.cancel(pi_opt6);
+                        alarm_opt3.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt3);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                    case 600000:
+                        alarm_opt2.cancel(pi_opt2);
+                        alarm_opt3.cancel(pi_opt3);
+                        alarm_opt1.cancel(pi_opt1);
+                        alarm_opt5.cancel(pi_opt5);
+                        alarm_opt6.cancel(pi_opt6);
+                        alarm_opt4.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt4);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                    case 180000:
+                        alarm_opt2.cancel(pi_opt2);
+                        alarm_opt3.cancel(pi_opt3);
+                        alarm_opt4.cancel(pi_opt4);
+                        alarm_opt1.cancel(pi_opt1);
+                        alarm_opt6.cancel(pi_opt6);
+                        alarm_opt5.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt5);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                    case 3600000:
+                        alarm_opt2.cancel(pi_opt2);
+                        alarm_opt3.cancel(pi_opt3);
+                        alarm_opt4.cancel(pi_opt4);
+                        alarm_opt5.cancel(pi_opt5);
+                        alarm_opt1.cancel(pi_opt1);
+                        alarm_opt6.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt6);
+                        new_refreshTime = old_refreshTime;
+                        break;
+                }
             }
-            if(refreshTime!=60000){
-                alarm.cancel(pintent);
-                PendingIntent updatedIntent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
-                AlarmManager updatedAlarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                updatedAlarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, updatedIntent);
-            }
+        }
+
+//        Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
+//        PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+//        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+////        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
+//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, pintent);
+//        Bundle getTime = getIntent().getExtras();
+//            if (getTime != null){
+//                Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
+//                refreshTime = getTime.getInt("fetchOption");
+//                Log.d(TAG, "Got from bundle extras: " + refreshTime);
+//            }
+//            if(refreshTime!=60000){
+//                alarm.cancel(pintent);
+//                PendingIntent updatedIntent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+//                AlarmManager updatedAlarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//                updatedAlarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, updatedIntent);
+//            }
 
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
