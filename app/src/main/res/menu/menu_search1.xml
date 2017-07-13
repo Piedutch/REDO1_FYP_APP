@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menuSearch"
+    <item android:id="@+id/menuSearch1"
         android:title="Search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always">
     </item>
-    <item android:id="@+id/archive_button"
+    <item android:id="@+id/archive_button_up"
         android:title=""
-        android:icon="@mipmap/ic_archive_button"
+        android:icon="@mipmap/ic_archive_button_up"
         app:showAsAction="always">
     </item>
 </menu>
