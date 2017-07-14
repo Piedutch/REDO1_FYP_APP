@@ -8,9 +8,5 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always">
     </item>
-    <item android:id="@+id/archive_button"
-        android:title=""
-        android:icon="@mipmap/ic_archive_button"
-        app:showAsAction="always">
-    </item>
+
 </menu>
