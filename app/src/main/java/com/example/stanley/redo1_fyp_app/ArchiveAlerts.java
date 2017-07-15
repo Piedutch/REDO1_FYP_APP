@@ -292,7 +292,6 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
             itemname_ = cursor.getString(3);
             time_ = cursor.getString(4);
             date_ = cursor.getString(5);
-            //byte[] decodeString = cursor.getBlob(6);
 
             itemnamelist.add(itemname_);
 
