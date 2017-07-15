@@ -1,12 +1,18 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,27 +69,56 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import static android.provider.BaseColumns._ID;
+import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
+import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
+import static com.example.stanley.redo1_fyp_app.Constants.Date1;
+import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
+import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
+import static com.example.stanley.redo1_fyp_app.Constants.Time1;
+
 public class AlertsActivity1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = AlertsActivity1.class.getSimpleName();
 
     private ProgressDialog pDialog;
-    private String globalvar_alertno;
-    private String globalvar_itemname;
-   // private ListView lv;
     private SwipeMenuListView lv;
-    List<String> alertnolist=new ArrayList<String>();
-    List<String> itemnamelist=new ArrayList<String>();
-    List<Integer> testlist = new ArrayList<Integer>();
+    private String alert_no1;
+    private String globalvar_alertno;
+    private String globalvar_assetno;
+    private String globalvar_itemname;
+    private String globalvar_time;
+    private String globalvar_date;
+
+    private long id_;
+    private String alertno_;
+    private String assetno_;
+    private String itemname_;
+    private String time_;
+    private String date_;
+    String photobase64;
+    String encodeImage;
+    Bitmap bitmap;
+    byte[] decodeString;
+
+    private static String[] FROM= {_ID, Alert_No1, Asset_No1, Item_Name1, Time1,Date1};
+    private static String ORDER_BY = Alert_No1 + " DESC";
+    private EventsData events;
 
     //URL of json
     private static String url = "http://128.199.75.229/alertspost.php";
 
+
     ArrayList<HashMap<String, String>> contactList;
+    List<String> alertnolist=new ArrayList<String>();
+    List<String> assetnolist=new ArrayList<String>();
+    List<String> itemnamelist=new ArrayList<String>();
+    List<String> timelist=new ArrayList<String>();
+    List<String> datelist=new ArrayList<String>();
+    List<String> picturelist=new ArrayList<String>();
 
     private SimpleAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +128,19 @@ public class AlertsActivity1 extends AppCompatActivity
         mTitle.setText("Alerts");
         //  toolbar.setTitle("Yo it works");
         setSupportActionBar(toolbar);
+
+        //DB
+        //Archive = new DatabaseEventsData(this);
+        events = new EventsData(this);
+        try{
+            // Try to retrieve object cursor from database
+            //removeEvent("2");
+            Cursor cursor = getEvents();
+            showEvents(cursor);
+            //this.deleteDatabase("events1.db");
+        }finally{
+            events.close();
+        }
 
         contactList = new ArrayList<>();
 
@@ -161,7 +210,7 @@ public class AlertsActivity1 extends AppCompatActivity
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "delete" item
+/*                // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
@@ -172,7 +221,7 @@ public class AlertsActivity1 extends AppCompatActivity
                 // set a icon
                 deleteItem.setIcon(R.mipmap.ic_trash);
                 // add to menu
-                menu.addMenuItem(deleteItem);
+                menu.addMenuItem(deleteItem);*/
 
                 // create "delete" item
                 SwipeMenuItem archiveItem = new SwipeMenuItem(
@@ -193,9 +242,9 @@ public class AlertsActivity1 extends AppCompatActivity
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
-                    case 0:
+/*                    case 0:
 
-                        /*for(final int item1:testlist){
+                        *//*for(final int item1:testlist){
                             //System.out.println(item);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -205,7 +254,7 @@ public class AlertsActivity1 extends AppCompatActivity
                                             Toast.LENGTH_LONG).show();
                                 }
                             });
-                        }*/
+                        }*//*
 
                         final String appo;
                         if(position==position){
@@ -281,18 +330,45 @@ public class AlertsActivity1 extends AppCompatActivity
                         AlertDialog alert = a_builder.create();
                         alert.setTitle("Warning!");
                         alert.show();
-                        break;
+                        break;*/
 
-                    case 1:
+                    case 0:
                         // This is for archive
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(AlertsActivity1.this,
-                                        "Toast for Archive",
-                                        Toast.LENGTH_LONG).show();
+                        if(position==position){
+
+                            for(int j  = 0; j < alertnolist.size(); j++){
+                                if(j == position){
+                                    globalvar_alertno = alertnolist.get(position);
+                                    break;
+                                }
                             }
-                        });
+                            for(int j  = 0; j < assetnolist.size(); j++){
+                                if(j == position){
+                                    globalvar_assetno = assetnolist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < itemnamelist.size(); j++){
+                                if(j == position){
+                                    globalvar_itemname = itemnamelist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < timelist.size(); j++){
+                                if(j == position){
+                                    globalvar_time = timelist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < datelist.size(); j++){
+                                if(j == position){
+                                    globalvar_date = datelist.get(position);
+                                    break;
+                                }
+                            }
+                            // Retrieving Picture from URL
+                            new GetPhoto().execute();
+                        }
                 }
                 return false;
             }
@@ -307,6 +383,60 @@ public class AlertsActivity1 extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+    private void addEvent (byte[] image){
+        //Insert a new record into the Events data source.
+        // You would do something similar for delete and update
+        SQLiteDatabase db = events.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Alert_No1, globalvar_alertno);
+        values.put(Asset_No1, globalvar_assetno);
+        values.put(Item_Name1, globalvar_itemname);
+        values.put(Time1, globalvar_time);
+        values.put(Date1,globalvar_date);
+        values.put("Image1",image);
+        db.insertOrThrow(TABLE_NAME, null, values);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(AlertsActivity1.this,
+                        "Successfully added to archive",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private Cursor getEvents(){
+        // Perform a managed query. The Activity will handle closing
+        // and re-querying the cursor when needed.
+        SQLiteDatabase db = events.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, FROM, null, null, null,
+                null, ORDER_BY);
+        return cursor;
+    }
+    private void showEvents(Cursor cursor) {
+        // Stuff them all into a big string
+        StringBuilder builder = new StringBuilder("Saved events: \n");
+
+
+        while (cursor.moveToNext()){
+            //Could use getColumnIndexOrThrow() to get indexes
+            id_ = cursor.getLong(0);
+            alertno_ = cursor.getString(1);
+            assetno_ = cursor.getString(2);
+            itemname_ = cursor.getString(3);
+            time_ = cursor.getString(4);
+            date_ = cursor.getString(5);
+
+            /*runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this,
+                            "Database:" + id_ + "\n" + alertno_ + "\n" + assetno_+ "\n" + itemname_ + "\n" + time_ + "\n" + date_ + "\n",
+                            Toast.LENGTH_LONG).show();
+                }
+            });*/
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -367,7 +497,7 @@ public class AlertsActivity1 extends AppCompatActivity
 
                         int test = c.getInt("alert_no");
 
-                        testlist.add(test);
+                        //testlist.add(test);
                         itemnamelist.add(item_name);
 
                         item_name = item_name+""; //30 will excceed //5 Fs to 28
@@ -385,6 +515,9 @@ public class AlertsActivity1 extends AppCompatActivity
 
                         //adding each child node to hashmap
                         alertnolist.add(alert_no);
+                        assetnolist.add(asset_no);
+                        timelist.add(time);
+                        datelist.add(date);
                         contact.put("time",time);
                         contact.put("item_name",item_name);
                         contact.put("asset_no",asset_no);
@@ -435,6 +568,96 @@ public class AlertsActivity1 extends AppCompatActivity
         }
     }
 
+    private class GetPhoto extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            //show loading dialog
+            pDialog = new ProgressDialog(AlertsActivity1.this);
+            pDialog.setMessage("loading...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            String urlphoto = "http://128.199.75.229/alertsdetails.php?alertid="+globalvar_alertno;
+            HttpHandler sh = new HttpHandler();
+            String jsonStr = sh.makeServiceCall(urlphoto);
+            Log.e(TAG, "Response from url: "+ jsonStr);
+
+            if(jsonStr != null){
+                try{
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    JSONArray contacts  = jsonObject.getJSONArray("PhotoKey");
+                    //looping through all contacts
+                    for(int i =0; i< contacts.length(); i++){
+                        JSONObject c = contacts.getJSONObject(i);
+                        photobase64 = c.getString("photo");
+                    }
+                    if(photobase64!=null){
+                        byte[] decodedstring = Base64.decode(photobase64, Base64.DEFAULT);
+                        bitmap = BitmapFactory.decodeByteArray(decodedstring, 0, decodedstring.length);
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] b = baos.toByteArray();
+                        encodeImage = Base64.encodeToString(b, Base64.DEFAULT);
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(AlertsActivity1.this,
+                                        "Photo is null",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+                        finish();
+                        startActivity(myIntent);
+
+                    }
+
+                }catch(final JSONException e){
+                    Log.e(TAG, "JSON parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(AlertsActivity1.this,
+                                    "JSON parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(AlertsActivity1.this,
+                                "Couldn't get json from server.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid){
+            super.onPostExecute(aVoid);
+            //Dismiss the dialog
+            if(pDialog.isShowing()){
+                pDialog.dismiss();
+            }
+
+            decodeString = Base64.decode(encodeImage, Base64.DEFAULT);
+            if(decodeString!=null){
+                addEvent(decodeString);
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -445,13 +668,6 @@ public class AlertsActivity1 extends AppCompatActivity
         }
     }
 
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -461,10 +677,6 @@ public class AlertsActivity1 extends AppCompatActivity
             Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
             startActivity(myIntent);
         }
-        //noinspection SimplifiableIfStatement
-/*        if (id == R.id.action_settings) {
-            return true;
-        }*/
 
         return super.onOptionsItemSelected(item);
     }
