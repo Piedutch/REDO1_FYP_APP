@@ -268,6 +268,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         cv.put(REFRESHVALUE, refreshValue);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.update(SETTINGS_TABLE_NAME, cv, _ID+"=1", null);
+        db.close();
         Toast.makeText(this, "oldvalue: " +old_refreshTime +" = newvalue: " +new_refreshTime , Toast.LENGTH_SHORT).show();
     }
 }

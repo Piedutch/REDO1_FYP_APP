@@ -60,6 +60,11 @@ public class SystemDiagnosticsActivity extends AppCompatActivity {
 
     private class GetParams extends AsyncTask<Void, Void, Void> {
         @Override
+        protected void onPostExecute(Void aVoid) {
+            setParams();
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(urlParams);
@@ -78,8 +83,6 @@ public class SystemDiagnosticsActivity extends AppCompatActivity {
                         armInput = p.getString("arm_usage");
                         gpuInput = p.getString("gpu_usage");
                         Log.d(TAG, "Value of Camera input: " +cameraInput);
-
-                        setParams();
                     }
 
                 }catch (final JSONException e) {
