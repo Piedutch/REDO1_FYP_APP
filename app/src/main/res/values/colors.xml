@@ -11,4 +11,7 @@
     <color name="refresh1">#008080</color>
     <color name="refresh2">#800080</color>
 
+    <color name="available">#32CD32</color>
+    <color name="unavailable">#B33A3A</color>
+
 </resources>

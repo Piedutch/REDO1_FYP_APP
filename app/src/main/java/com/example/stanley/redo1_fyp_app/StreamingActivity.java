@@ -20,6 +20,7 @@ public class StreamingActivity extends Activity
 
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("http://10.10.10.64:8081/");
+//        mWebView.loadUrl("http://10.10.10.64:8081/");
+        mWebView.loadUrl("http://175.156.206.57:8081/");
     }
 }

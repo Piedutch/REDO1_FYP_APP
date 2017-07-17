@@ -9,6 +9,8 @@ import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Date1;
 import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
+import static com.example.stanley.redo1_fyp_app.Constants.REFRESHVALUE;
+import static com.example.stanley.redo1_fyp_app.Constants.SETTINGS_TABLE_NAME;
 import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
 import static com.example.stanley.redo1_fyp_app.Constants.Time1;
 
@@ -30,11 +32,19 @@ public class EventsData extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         db.execSQL("CREATE TABLE " + TABLE_NAME +" (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Alert_No1 + " TEXT NOT NULL,"
                 + Asset_No1 + " TEXT NOT NULL," +Item_Name1+ " TEXT NOT NULL,"+Time1+ " TEXT NOT NULL," +Date1+" TEXT NOT NULL,"+"Image1"+" BLOB);");
+
+        db.execSQL("CREATE TABLE " + SETTINGS_TABLE_NAME + " (" + _ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REFRESHVALUE
+                + " INT NOT NULL);");
+
+        db.execSQL("INSERT INTO " + SETTINGS_TABLE_NAME + " (" + REFRESHVALUE
+                + ") VALUES(60000);");
     }
 
     //@Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SETTINGS_TABLE_NAME);
         onCreate(db);
     }
 }
