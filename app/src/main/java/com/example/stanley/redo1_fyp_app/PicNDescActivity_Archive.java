@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.liuguangqiang.swipeback.SwipeBackActivity;
+import com.liuguangqiang.swipeback.SwipeBackLayout;
+
 /**
  * Created by Stanley on 13/7/2017.
  */
 
-public class PicNDescActivity_Archive extends Activity {
+public class PicNDescActivity_Archive extends SwipeBackActivity {
     private EventsData events;
     byte[] photo;
     ImageView imageView;
@@ -23,6 +26,7 @@ public class PicNDescActivity_Archive extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picndesc);
         events = new EventsData(this);
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
         imageView =(ImageView)findViewById(R.id.phone_icon);
         TextView asset_no = (TextView) findViewById(R.id.itemid);

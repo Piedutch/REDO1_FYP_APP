@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Status Report"
+        android:layout_marginTop="65dp"
+        android:text="RPI 1 Status Report"
         android:textStyle="bold"
         android:textSize="20dp"/>
 
@@ -111,6 +111,7 @@
         android:id="@+id/armStatus_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         app:srcCompat="@mipmap/status"
         android:layout_alignTop="@+id/armStatus_photo"
         android:layout_alignStart="@+id/cameraStatus_status" />

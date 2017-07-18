@@ -1,103 +1,130 @@
 package com.example.stanley.redo1_fyp_app;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+
+import android.os.Handler;
+import android.widget.Toast;
 
 import static android.provider.BaseColumns._ID;
 import static com.example.stanley.redo1_fyp_app.Constants.REFRESHVALUE;
 import static com.example.stanley.redo1_fyp_app.Constants.SETTINGS_TABLE_NAME;
 
-/**
- * Created by Stanley on 9/6/2017.
- */
-
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class HomeActivity1 extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private int old_refreshTime = 0;
     private int new_refreshTime = 0;
     private int count = 0;
     private EventsData dbHelper;
-    private String TAG = HomeActivity.class.getSimpleName();
+
+    private String TAG = AlertsActivity1.class.getSimpleName();
+
+    //URL of json
+    private static String url = "http://128.199.75.229/alertspost.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title1);
+        mTitle.setText("Ostiarius");
+        setSupportActionBar(toolbar);
 
-/*        View homeicon = findViewById(R.id.home_icon);
-        homeicon.setOnClickListener(this);
-        View hometext = findViewById(R.id.clickhome);
-        hometext.setOnClickListener(this);
 
-        View alertsicon = findViewById(R.id.alertsicon);
-        alertsicon.setOnClickListener(this);
-        View alertstext = findViewById(R.id.clickalerts);
-        alertstext.setOnClickListener(this);
+       // new GetContacts().execute();
 
-        View settingsicon = findViewById(R.id.settingsicon);
-        settingsicon.setOnClickListener(this);
-        View settingstext = findViewById(R.id.clicksettings);
-        settingstext.setOnClickListener(this);
+        Button alertbutton = (Button)findViewById(R.id.button_alert);
+        alertbutton.setOnClickListener(this);
+        Button archivealertbutton = (Button)findViewById(R.id.button_archivealert);
+        archivealertbutton.setOnClickListener(this);
+        Button maintenancebutton = (Button)findViewById(R.id.button_maintenance);
+        maintenancebutton.setOnClickListener(this);
+        Button sysdiag = (Button)findViewById(R.id.button_sysdiag);
+        sysdiag.setOnClickListener(this);
+        Button webcam = (Button)findViewById(R.id.button_webcam);
+        webcam.setOnClickListener(this);
+        Button statistics = (Button)findViewById(R.id.button_statistics);
+        statistics.setOnClickListener(this);
 
-        View searchicon = findViewById(R.id.searchicon);
-        searchicon.setOnClickListener(this);
-        View searchtext = findViewById(R.id.clicksearch);
-        searchtext.setOnClickListener(this);*/
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
+                        finish();
+                        startActivity(myIntent);
+                    }
+                }, 100);
+            }
+        });
 
         dbHelper = new EventsData(this);
         // TO-DO select refreshtime from table
         loadRefreshValue();
+
         Log.d(TAG, "This is newValue that should be 6000 for first iteration: " + new_refreshTime);
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
-        Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
-        PendingIntent pi_default = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+        Intent intent = new Intent(HomeActivity1.this, GetNotifications.class);
+        PendingIntent pi_default = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
         AlarmManager alarm_default = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (count==0) {
             alarm_default.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_default);
             new_refreshTime = old_refreshTime;
             count++;
-        }
-        Bundle getTime = getIntent().getExtras();
+        }Bundle getTime = getIntent().getExtras();
         if (getTime != null){
             new_refreshTime = getTime.getInt("fetchOption");
             if(new_refreshTime==old_refreshTime){
                 Toast.makeText(getApplicationContext(), "Cannot input time interval that is the same as before!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(HomeActivity.this, SettingsActivity.class);
+                Intent i = new Intent(HomeActivity1.this, SettingsActivity.class);
                 startActivity(i);
             }else {
                 Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Got from bundle extras: " + new_refreshTime);
 
-                PendingIntent pi_opt2 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt2 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                PendingIntent pi_opt1 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt1 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt1 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                PendingIntent pi_opt3 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt3 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt3 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                PendingIntent pi_opt4 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt4 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt4 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                PendingIntent pi_opt5 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt5 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt5 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                PendingIntent pi_opt6 = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+                PendingIntent pi_opt6 = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
                 AlarmManager alarm_opt6 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //                boolean isWorking_opt1 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
 //                boolean isWorking_opt2 = (PendingIntent.getService(HomeActivity.this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
@@ -176,75 +203,126 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-//        Intent intent = new Intent(HomeActivity.this, GetNotifications.class);
-//        PendingIntent pintent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
-//        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-////        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent);
-//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, pintent);
-//        Bundle getTime = getIntent().getExtras();
-//            if (getTime != null){
-//                Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
-//                refreshTime = getTime.getInt("fetchOption");
-//                Log.d(TAG, "Got from bundle extras: " + refreshTime);
-//            }
-//            if(refreshTime!=60000){
-//                alarm.cancel(pintent);
-//                PendingIntent updatedIntent = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
-//                AlarmManager updatedAlarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//                updatedAlarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), refreshTime, updatedIntent);
-//            }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-/*            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        /*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String Date = sdf.format(new Date());
 
             TextView overview_alerts = (TextView) findViewById(R.id.overview_alerts);
             overview_alerts.setText(Date);*/
-
-
-//        FirebaseMessaging.getInstance().subscribeToTopic("test");
-//        FirebaseInstanceId.getInstance().getToken();
     }
-
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-
-            case R.id.home_icon:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-
-            case R.id.clickhome:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-
-            case R.id.alertsicon:
+            case R.id.button_alert:
                 startActivity(new Intent(this, AlertsActivity1.class));
                 break;
-
-            case R.id.clickalerts:
-                startActivity(new Intent(this, AlertsActivity1.class));
+            case R.id.button_archivealert:
+                startActivity(new Intent(this, ArchiveAlerts.class));
                 break;
-
-            case R.id.settingsicon:
-                startActivity(new Intent(this, SystemDiagnosticsActivity.class));
+            case R.id.button_maintenance:
+                startActivity(new Intent(this, MaintenanceMode.class));
                 break;
-
-            case R.id.clicksettings:
-                startActivity(new Intent(this, SystemDiagnosticsActivity.class));
+            case R.id.button_sysdiag:
+                startActivity(new Intent(this, SystemDiagnosticsActivity1.class));
                 break;
-
-            case R.id.searchicon:
+            case R.id.button_webcam:
                 startActivity(new Intent(this, StreamingActivity.class));
                 break;
-
-            case R.id.clicksearch:
-                startActivity(new Intent(this, StreamingActivity.class));
+            case R.id.button_statistics:
+                //startActivity(new Intent(this, SystemDiagnosticsActivity.class));
                 break;
+        }}
+/*    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView)item.getActionView();
 
+        searchView .setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }*/
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
+/*    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+*//*        if(item.getItemId() == R.id.archive_button){
+            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
+            startActivity(myIntent);
+        }
+
+        return super.onOptionsItemSelected(item);*//*
+    }*/
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_alerts) {
+            Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_archivedalerts) {
+            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_maintenance) {
+            Intent myIntent = new Intent(getApplicationContext(),MaintenanceMode.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_livestream) {
+            Intent myIntent = new Intent(getApplicationContext(),StreamingActivity.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_systemdiag) {
+            Intent myIntent = new Intent(getApplicationContext(), SystemDiagnosticsActivity1.class);
+            startActivity(myIntent);
+        }else if (id == R.id.nav_settings) {
+            Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(myIntent);
+        }else if (id == R.id.nav_about) {
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
     private void loadRefreshValue(){
 
 //        String selectQuery = "Select " + REFRESHVALUE + " from " + SETTINGS_TABLE_NAME;

@@ -13,5 +13,7 @@
 
     <color name="available">#32CD32</color>
     <color name="unavailable">#B33A3A</color>
+    <color name ="maintenance">#f69847</color>
+    <color name ="map_status">#00BFFF</color>
 
 </resources>

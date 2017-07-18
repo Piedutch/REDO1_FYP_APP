@@ -3,33 +3,41 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_alerts"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Alert" />
+            android:title="Alerts" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_archivedalerts"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Archived Alerts" />
+        <item
+            android:id="@+id/nav_maintenance"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="System" />
+            android:title="Maintenance" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_livestream"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="Live Stream" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Others">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_systemdiag"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="System Diagnostics" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="About" />
         </menu>
     </item>
 

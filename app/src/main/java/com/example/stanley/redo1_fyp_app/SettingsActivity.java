@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View v) {
                 if(intent_value != 0){
                     Log.d(TAG, "Sending " + intent_value + " to HomeActivity");
-                    Intent i = new Intent(SettingsActivity.this, HomeActivity.class);
+                    Intent i = new Intent(SettingsActivity.this, HomeActivity1.class);
                     i.putExtra("fetchOption", intent_value);
                     startActivity(i);
                 }

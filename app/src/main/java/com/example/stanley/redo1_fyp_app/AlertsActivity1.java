@@ -54,7 +54,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.RunnableFuture;
@@ -489,15 +491,34 @@ public class AlertsActivity1 extends AppCompatActivity
                     for(int i =0; i< contacts.length(); i++){
                         JSONObject c = contacts.getJSONObject(i);
 
-                        String alert_no = c.getString("alert_no");
+                        String alert_no = c.getString("id");
                         String time = c.getString("time");
                         String item_name = c.getString("item_name");
                         String asset_no = c.getString("asset_no");
                         String date = c.getString("date");
 
-                        int test = c.getInt("alert_no");
+                        try {
+                            SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
+                            SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm:ss a");
 
-                        //testlist.add(test);
+                            Date _24HourDt = _24HourSDF.parse(time);
+                            time = _12HourSDF.format(_24HourDt);
+
+                        }catch(final Exception e){
+                            e.printStackTrace();
+                        }
+
+                        //  time = time.substring(9, 12);
+                        String PMnAM = time.substring(9, 12);
+
+                        if(PMnAM.equals("a.m")){
+                            time = time.substring(0,8);
+                            time = time + " AM";
+                        } else {
+                            time = time.substring(0,8);
+                            time = time + " PM";
+                        }
+
                         itemnamelist.add(item_name);
 
                         item_name = item_name+""; //30 will excceed //5 Fs to 28
@@ -687,23 +708,30 @@ public class AlertsActivity1 extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Intent myIntent = new Intent(getApplicationContext(),HomeActivity.class);
+        if (id == R.id.nav_home) {
+            Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
             startActivity(myIntent);
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_alerts) {
             Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
             startActivity(myIntent);
-        } else if (id == R.id.nav_slideshow) {
-            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+        } else if (id == R.id.nav_archivedalerts) {
+            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
             startActivity(myIntent);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_maintenance) {
+            Intent myIntent = new Intent(getApplicationContext(),MaintenanceMode.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_livestream) {
+            Intent myIntent = new Intent(getApplicationContext(),StreamingActivity.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_systemdiag) {
+            Intent myIntent = new Intent(getApplicationContext(), SystemDiagnosticsActivity1.class);
+            startActivity(myIntent);
+        }else if (id == R.id.nav_settings) {
             Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(myIntent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }else if (id == R.id.nav_about) {
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

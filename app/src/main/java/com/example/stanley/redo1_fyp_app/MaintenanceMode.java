@@ -1,14 +1,18 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -49,10 +53,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.RunnableFuture;
 
 import android.os.Handler;
@@ -65,23 +71,21 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+public class MaintenanceMode extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-import static android.provider.BaseColumns._ID;
-import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
-import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
-import static com.example.stanley.redo1_fyp_app.Constants.Date1;
-import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
-import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
-import static com.example.stanley.redo1_fyp_app.Constants.Time1;
+    private String TAG = MaintenanceMode.class.getSimpleName();
 
-public class ArchiveAlerts extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private long globalvar_ID;
+    private ProgressDialog pDialog;
+    private SwipeMenuListView lv;
+    private String alert_no1;
     private String globalvar_alertno;
     private String globalvar_assetno;
     private String globalvar_itemname;
     private String globalvar_time;
     private String globalvar_date;
+    private String globalvar_maintenance;
+    private String globalvar_map_status;
 
     private long id_;
     private String alertno_;
@@ -89,49 +93,44 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
     private String itemname_;
     private String time_;
     private String date_;
-    private ProgressDialog pDialog;
-    private String TAG = MainActivity.class.getSimpleName();
+    String photobase64;
+    String encodeImage;
+    Bitmap bitmap;
+    byte[] decodeString;
 
-    List<Long> IDlist=new ArrayList<Long>();
+    private EventsData events;
+
+    //URL of json
+    private static String url = "http://128.199.75.229/items.php";
+
+
+    ArrayList<HashMap<String, String>> contactList;
     List<String> alertnolist=new ArrayList<String>();
     List<String> assetnolist=new ArrayList<String>();
     List<String> itemnamelist=new ArrayList<String>();
     List<String> timelist=new ArrayList<String>();
     List<String> datelist=new ArrayList<String>();
 
-    private static String[] FROM= {_ID, Alert_No1, Asset_No1, Item_Name1, Time1,Date1,"Image1"};
-    private static String ORDER_BY = Alert_No1 + " DESC";
-    private EventsData events;
-
-    ArrayList<HashMap<String, String>> contactList;
-    private SwipeMenuListView lv;
+    List<String> maintenancelist=new ArrayList<String>();
+    List<String> map_statuslist=new ArrayList<String>();
 
     private SimpleAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alerts1);
+        setContentView(R.layout.activity_maintenance);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title1);
-        mTitle.setText("Archive Alerts");
+        mTitle.setText("All Assets");
+        //  toolbar.setTitle("Yo it works");
         setSupportActionBar(toolbar);
-        //this.deleteDatabase("eventrecords.db");
 
         contactList = new ArrayList<>();
 
+        //lv = (ListView) findViewById(R.id.listView_alerts1);
         lv = (SwipeMenuListView) findViewById(R.id.listView_alerts1);
 
-        //DB
-        events = new EventsData(this);
-
-        try{
-            // Try to retrieve object cursor from database
-            Cursor cursor = getEvents();
-            showEvents(cursor);
-        }finally{
-            //events.close();
-        }
+        new GetContacts().execute();
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
@@ -143,7 +142,7 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
                     @Override
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
-                        Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
+                        Intent myIntent = new Intent(getApplicationContext(),MaintenanceMode.class);
                         finish();
                         startActivity(myIntent);
                     }
@@ -154,96 +153,87 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==position){
-                    Intent myIntent = new Intent(getApplicationContext(),PicNDescActivity_Archive.class);
-                    for(int j  = 0; j < alertnolist.size(); j++){
-                        if(j == position){
-                            globalvar_alertno = alertnolist.get(position);
-                            break;
-                        }
-                    }
-                    for(int j  = 0; j < itemnamelist.size(); j++){
-                        if(j == position){
-                            globalvar_itemname = itemnamelist.get(position);
-                            break;
-                        }
-                    }
+
                     for(int j  = 0; j < assetnolist.size(); j++){
                         if(j == position){
                             globalvar_assetno = assetnolist.get(position);
                             break;
                         }
                     }
-                    for(int j  = 0; j < timelist.size(); j++){
+                    for(int j  = 0; j < maintenancelist.size(); j++){
                         if(j == position){
-                            globalvar_time = timelist.get(position);
-                            break;
-                        }
-                    }for(int j  = 0; j < datelist.size(); j++){
-                        if(j == position){
-                            globalvar_date = datelist.get(position);
+                            globalvar_maintenance = maintenancelist.get(position);
                             break;
                         }
                     }
 
-                    myIntent.putExtra("alertno",globalvar_alertno);
-                    myIntent.putExtra("assetno",globalvar_assetno);
-                    myIntent.putExtra("itemname",globalvar_itemname);
-                    myIntent.putExtra("time",globalvar_time);
-                    myIntent.putExtra("date",globalvar_date);
-                    //myIntent.putExtra("photo",globalvar_photo);
-
-                    startActivity(myIntent);
-
-                    /*runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(ArchiveAlerts.this,
-                                    ""+globalvar_alertno+ " \n" + globalvar_assetno + "\n" + globalvar_itemname + "\n" +globalvar_time + "\n" + globalvar_date,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });*/
-
-                }}});
+                }
+            }
+        });
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "archive" item
-                SwipeMenuItem archiveItem = new SwipeMenuItem(
+/*                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                archiveItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                         0x3F, 0x25)));
                 // set item width
-                archiveItem.setWidth(170);
+                deleteItem.setWidth(170);
                 // set a icon
-                archiveItem.setIcon(R.mipmap.ic_trash);
+                deleteItem.setIcon(R.mipmap.ic_trash);
                 // add to menu
-                menu.addMenuItem(archiveItem);
+                menu.addMenuItem(deleteItem);*/
+
             }
         };
         lv.setMenuCreator(creator);
         lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        if (position==position){
-                            for(int j  = 0; j < IDlist.size(); j++){
+                        // This is for archive
+                        if(position==position){
+
+                            for(int j  = 0; j < alertnolist.size(); j++){
                                 if(j == position){
-                                    globalvar_ID = IDlist.get(position);
+                                    globalvar_alertno = alertnolist.get(position);
                                     break;
                                 }
                             }
-
+                            for(int j  = 0; j < assetnolist.size(); j++){
+                                if(j == position){
+                                    globalvar_assetno = assetnolist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < itemnamelist.size(); j++){
+                                if(j == position){
+                                    globalvar_itemname = itemnamelist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < timelist.size(); j++){
+                                if(j == position){
+                                    globalvar_time = timelist.get(position);
+                                    break;
+                                }
+                            }
+                            for(int j  = 0; j < datelist.size(); j++){
+                                if(j == position){
+                                    globalvar_date = datelist.get(position);
+                                    break;
+                                }
+                            }
                         }
-                        final String s = Objects.toString(globalvar_ID, null);
-
-                        removeEvent(s);
                 }
                 return false;
-            }});
+            }
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -255,88 +245,10 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-    private Cursor getEvents(){
-        // Perform a managed query. The Activity will handle closing
-        // and re-querying the cursor when needed.
-        SQLiteDatabase db = events.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, FROM, null, null, null,
-                null, ORDER_BY);
-        return cursor;
-    }
-    private void removeEvent(String placeid){
-        SQLiteDatabase db = events.getWritableDatabase();
-        try{
-            db.delete(TABLE_NAME,"_ID = ?",new String[]{placeid});
-        }finally {
-            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
-            finish();
-            startActivity(myIntent);
-            db.close();
-        }
-    runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ArchiveAlerts.this,
-                                        "Successfully removed from archive",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-    }
-    private void showEvents(Cursor cursor) {
-        while (cursor.moveToNext()){
-            //Could use getColumnIndexOrThrow() to get indexes
-            id_ = cursor.getLong(0);
-            alertno_ = cursor.getString(1);
-            assetno_ = cursor.getString(2);
-            itemname_ = cursor.getString(3);
-            time_ = cursor.getString(4);
-            date_ = cursor.getString(5);
-
-            itemnamelist.add(itemname_);
-
-            if(itemname_.length() > 28){
-                itemname_ = itemname_.substring(0,28);
-            }
-
-            //For intenting to PicNDescActivity_Archive
-            IDlist.add(id_);
-            alertnolist.add(alertno_);
-            assetnolist.add(assetno_);
-            timelist.add(time_);
-            datelist.add(date_);
-
-            HashMap<String, String> contact = new HashMap<>();
-            //For displaying
-            contact.put("alertno_",alertno_);
-            contact.put("assetno_",assetno_);
-            contact.put("itemname_",itemname_);
-            contact.put("time_",time_);
-            contact.put("date_",date_);
-
-            contactList.add(contact);
-        }
-
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(ArchiveAlerts.this,
-                        "All things in DB = "+lv,
-                        Toast.LENGTH_LONG).show();
-            }
-        });*/
-        adapter = new SimpleAdapter(
-                ArchiveAlerts.this, contactList,
-                R.layout.list_item_archive, new String[]{"time_","itemname_","assetno_","alertno_"},
-                new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no});
-        lv.setAdapter(adapter);
-
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search1, menu);
+        inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch1);
         SearchView searchView = (SearchView)item.getActionView();
 
@@ -356,6 +268,116 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
         return super.onCreateOptionsMenu(menu);
     }
 
+    private class GetContacts extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            //show loading dialog
+            pDialog = new ProgressDialog(MaintenanceMode.this);
+            pDialog.setMessage("loading...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            HttpHandler sh = new HttpHandler();
+            String jsonStr = sh.makeServiceCall(url);
+            Log.e(TAG, "Response from url: "+ jsonStr);
+
+            if(jsonStr != null){
+                try{
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+
+                    //getting json array node
+                    JSONArray contacts  = jsonObject.getJSONArray("Items");
+
+                    //looping through all contacts
+                    for(int i =0; i< contacts.length(); i++){
+                        JSONObject c = contacts.getJSONObject(i);
+
+                        String item_name = c.getString("item_name");
+                        String asset_no = c.getString("asset_no");
+                        String maintenance_mode = c.getString("maintenance_mode");
+                        String map_status = c.getString("map_status");
+
+                        if(maintenance_mode.equals("0")){
+                            maintenance_mode = "";
+                        }
+                        if(maintenance_mode.equals("1")){
+                            maintenance_mode = "Under Maintenance";
+                        }
+                        if(map_status.equals("1")){
+                            map_status = "Mapped";
+                        } else {
+                            map_status = "";
+                        }
+
+                        itemnamelist.add(item_name);
+
+                        HashMap<String, String> contact = new HashMap<>();
+
+                        //adding each child node to hashmap
+                        map_statuslist.add(map_status);
+                        maintenancelist.add(maintenance_mode);
+                        assetnolist.add(asset_no);
+                        contact.put("map_status",map_status);
+                        contact.put("item_name",item_name);
+                        contact.put("asset_no",asset_no);
+                        contact.put("maintenance_mode",maintenance_mode);
+
+                        //adding contact to contact list
+                        contactList.add(contact);
+                    }
+                }catch(final JSONException e){
+                    Log.e(TAG, "JSON parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MaintenanceMode.this,
+                                    "JSON parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MaintenanceMode.this,
+                                "Couldn't get json from server.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid){
+            super.onPostExecute(aVoid);
+            //Dismiss the dialog
+            if(pDialog.isShowing()){
+                pDialog.dismiss();
+            }
+            //updating json data to listview
+            adapter = new SimpleAdapter(
+                    MaintenanceMode.this, contactList,
+                    R.layout.list_item_maintenance, new String[]{"item_name","asset_no","maintenance_mode","map_status"},
+                    new int[]{R.id.description_alerts, R.id.asset, R.id.maintenancestatus, R.id.map_status});
+            lv.setAdapter(adapter);
+
+            /*runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this,
+                            "lv = "+lv,
+                            Toast.LENGTH_LONG).show();
+                }
+            });*/
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -367,18 +389,18 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
         }
     }
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if(item.getItemId() == R.id.archive_button_up){
-            Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+        if(item.getItemId() == R.id.archive_button){
+            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
             startActivity(myIntent);
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

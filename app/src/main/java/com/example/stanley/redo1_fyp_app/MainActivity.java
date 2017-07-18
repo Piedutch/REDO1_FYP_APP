@@ -1,5 +1,6 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -84,18 +85,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_home) {
+            Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_alerts) {
+            Intent myIntent = new Intent(getApplicationContext(),AlertsActivity1.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_archivedalerts) {
+            Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_maintenance) {
+            Intent myIntent = new Intent(getApplicationContext(),MaintenanceMode.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_livestream) {
+            Intent myIntent = new Intent(getApplicationContext(),StreamingActivity.class);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_systemdiag) {
+            Intent myIntent = new Intent(getApplicationContext(), SystemDiagnosticsActivity1.class);
+            startActivity(myIntent);
+        }else if (id == R.id.nav_settings) {
+            Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(myIntent);
+        }else if (id == R.id.nav_about) {
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
