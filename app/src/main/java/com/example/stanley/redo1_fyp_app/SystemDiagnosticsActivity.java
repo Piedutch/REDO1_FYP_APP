@@ -1,11 +1,17 @@
 package com.example.stanley.redo1_fyp_app;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -14,6 +20,8 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 /**
  * Created by jonat on 07/14/17.
@@ -26,6 +34,8 @@ public class SystemDiagnosticsActivity extends AppCompatActivity {
     private ImageView tempStatus_status, cameraStatus_status, armStatus_status, gpuStatus_status;
     private TextView tempStatus_tv, cameraStatus_tv, armStatus_tv, gpuStatus_tv;
     private String tempInput, cameraInput, armInput, gpuInput;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +98,19 @@ public class SystemDiagnosticsActivity extends AppCompatActivity {
                 }catch (final JSONException e) {
                     Log.e(TAG, "JSON parsing error: " + e.getMessage());
                 }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
+            } else if (jsonStr.equals(null)){
+//                AlertDialog alertDialog = new AlertDialog.Builder(SystemDiagnosticsActivity.this).create();
+//                alertDialog.setTitle("Information");
+//                alertDialog.setMessage("No information retrieved. Is your pi turned on? \nPlease try again");
+//                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        Intent i = new Intent(SystemDiagnosticsActivity.this, HomeActivity.class);
+//                        startActivity(i);
+//                    }
+//                });
+//                alertDialog.show();
             }
 
             return null;

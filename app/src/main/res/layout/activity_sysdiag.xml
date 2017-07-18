@@ -47,11 +47,11 @@
         android:id="@+id/tempStatus_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_alignBaseline="@+id/tempStatus_header"
         android:layout_alignBottom="@+id/tempStatus_header"
+        android:layout_marginStart="14dp"
         android:layout_toEndOf="@+id/status_header"
-        android:layout_marginStart="14dp" />
+        android:text="Data not Retrieved" />
 
     <ImageView
         android:id="@+id/cameraStatus_photo"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/cameraStatus_header"
         android:layout_alignStart="@+id/tempStatus_data"
-        android:text="TextView" />
+        android:text="Data not Retrieved" />
 
     <ImageView
         android:id="@+id/armStatus_photo"
@@ -121,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/cameraStatus_data"
         android:layout_alignTop="@+id/armStatus_header"
-        android:text="TextView" />
+        android:text="Data not Retrieved" />
 
     <ImageView
         android:id="@+id/gpuStatus_photo"
@@ -156,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/armStatus_data"
         android:layout_alignTop="@+id/gpuStatus_header"
-        android:text="TextView" />
+        android:text="Data not Retrieved" />
 
 
 
