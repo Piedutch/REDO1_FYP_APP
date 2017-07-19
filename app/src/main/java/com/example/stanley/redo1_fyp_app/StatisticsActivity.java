@@ -29,6 +29,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.liuguangqiang.swipeback.SwipeBackActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,7 @@ import java.util.List;
  * Created by jonat on 07/14/17.
  */
 
-public class StatisticsActivity extends Activity {
+public class StatisticsActivity extends SwipeBackActivity {
 
     private String TAG = StatisticsActivity.class.getSimpleName();
     private String url = "http://128.199.75.229/piechart.php";

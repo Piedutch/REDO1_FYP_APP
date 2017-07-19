@@ -45,8 +45,8 @@ public class SystemDiagnosticsActivity1 extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sysdiag_toolbar);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title1);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title2);
         mTitle.setText("System Diagnostics");
         //  toolbar.setTitle("Yo it works");
         setSupportActionBar(toolbar);
@@ -76,7 +76,7 @@ public class SystemDiagnosticsActivity1 extends AppCompatActivity
 
         new GetParams().execute();
 
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_sysdiag);
         swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -8,7 +8,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-public class StreamingActivity extends Activity
+import com.liuguangqiang.swipeback.SwipeBackActivity;
+import com.liuguangqiang.swipeback.SwipeBackLayout;
+
+public class StreamingActivity extends SwipeBackActivity
 {
     private WebView mWebView = null;
     /** Called when the activity is first created. */
@@ -17,6 +20,7 @@ public class StreamingActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaming);
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.getSettings().setJavaScriptEnabled(true);
