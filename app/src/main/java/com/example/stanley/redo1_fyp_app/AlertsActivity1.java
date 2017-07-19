@@ -445,8 +445,8 @@ public class AlertsActivity1 extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.menuSearch);
+        inflater.inflate(R.menu.search, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch1);
         SearchView searchView = (SearchView)item.getActionView();
 
         searchView .setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -705,10 +705,10 @@ public class AlertsActivity1 extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if(item.getItemId() == R.id.archive_button){
+        /*if(item.getItemId() == R.id.archive_button){
             Intent myIntent = new Intent(getApplicationContext(),ArchiveAlerts.class);
             startActivity(myIntent);
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
