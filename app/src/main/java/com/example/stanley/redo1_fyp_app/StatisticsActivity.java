@@ -9,8 +9,12 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -42,7 +46,10 @@ public class StatisticsActivity extends Activity {
 
     private String TAG = StatisticsActivity.class.getSimpleName();
     private String url = "http://128.199.75.229/piechart.php";
-    private String item_name;
+    private String url1 = "http://128.199.75.229/current_count_of_alerts.php";
+    private String item_name, date;
+    private int no_of_alerts;
+    TextView today_alerts;
     private PieChart pieChart;
     private int frequency, resultcount;
     private String [] labels;
@@ -60,6 +67,8 @@ public class StatisticsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stats_piechart);
 
+        today_alerts = (TextView) findViewById(R.id.today_alerts);
+
         pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setCenterText("Items taken out");
         Description description = new Description();
@@ -76,6 +85,10 @@ public class StatisticsActivity extends Activity {
     }
     private class GetPieChart extends AsyncTask<Void, Void, Void> {
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            setTextView(no_of_alerts);
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -137,8 +150,56 @@ public class StatisticsActivity extends Activity {
             yValstosetdata = setYAxisValues(resultcount, allfrequency, xVals);
             setData(yValstosetdata, xVals);
 
+            HttpHandler sh1 = new HttpHandler();
+            String jsonStr1 = sh1.makeServiceCall(url1);
+            Log.e(TAG, "Response from url: " + jsonStr1);
+
+            if (jsonStr1 != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonStr1);
+
+                    //getting json array node
+                    JSONArray array = jsonObject.getJSONArray("currentcount");
+
+                    //looping through all contacts
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject c = array.getJSONObject(i);
+
+                        no_of_alerts= c.getInt("alerts_today");
+                        date = c.getString("date");
+
+                    }
+                } catch (final JSONException e) {
+                    Log.e(TAG, "JSON parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(StatisticsActivity.this,
+                                    "JSON parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(StatisticsActivity.this,
+                                "Couldn't get json from server.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
             return null;
         }
+    }
+
+    private void setTextView(int no_of_alerts){
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//        String Date = sdf.format(new Date());
+        today_alerts.setText("There are " + no_of_alerts + " alerts today - " + date + ".");
     }
 
     private void setData(ArrayList<PieEntry> yArray, ArrayList<String> xVals) {
