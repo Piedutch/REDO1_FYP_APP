@@ -158,6 +158,7 @@ public class StatisticsActivity extends Activity {
         pieDataSet.setColors(Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
                 Color.rgb(106, 150, 31), Color.rgb(179, 100, 53), Color.rgb(255,0,255), Color.rgb(0,191,255));
         PieData data = new PieData(pieDataSet);
+        data.setValueTextSize(20f);
 
         Legend l = pieChart.getLegend();
         l.setForm(Legend.LegendForm.CIRCLE);
