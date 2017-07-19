@@ -228,12 +228,12 @@
 
     <ImageView
         android:id = "@+id/statistics"
-        android:layout_height="67dp"
-        android:layout_width="67dp"
+        android:layout_height="60dp"
+        android:layout_width="60dp"
         android:layout_gravity="left"
         android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/latestsetting"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/latestpiechart"
         android:background="@null"
         android:layout_marginStart="57dp"
         android:layout_alignTop="@+id/button_statistics"
@@ -247,7 +247,7 @@
         android:text="Statistics"
         android:layout_below="@+id/statistics"
         android:layout_alignStart="@+id/statistics"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="6dp" />
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="1dp" />
 
 </RelativeLayout>
