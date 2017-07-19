@@ -50,6 +50,7 @@
         android:layout_alignBaseline="@+id/tempStatus_header"
         android:layout_alignBottom="@+id/tempStatus_header"
         android:layout_marginStart="14dp"
+        android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/status_header"
         android:text="Data not Retrieved" />
 
@@ -70,7 +71,7 @@
         android:layout_marginBottom="13dp"
         android:layout_toEndOf="@+id/cameraStatus_photo"
         android:textStyle="bold"
-        android:text="Camera Status" />
+        android:text="WebCam Status" />
 
     <ImageView
         android:id="@+id/cameraStatus_status"
@@ -104,7 +105,7 @@
         android:layout_alignBottom="@+id/armStatus_photo"
         android:layout_marginBottom="13dp"
         android:layout_toEndOf="@+id/armStatus_photo"
-        android:text="Arm Status"
+        android:text="Arm Usage"
         android:textStyle="bold"/>
 
     <ImageView
@@ -137,7 +138,7 @@
         android:id="@+id/gpuStatus_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GPU Status"
+        android:text="GPU Usage"
         android:textStyle="bold"
         android:layout_alignBottom="@+id/gpuStatus_photo"
         android:layout_toEndOf="@+id/gpuStatus_photo"

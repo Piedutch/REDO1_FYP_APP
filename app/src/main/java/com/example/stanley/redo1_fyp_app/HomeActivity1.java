@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import static android.provider.BaseColumns._ID;
+import static com.example.stanley.redo1_fyp_app.Constants.COUNT;
 import static com.example.stanley.redo1_fyp_app.Constants.REFRESHVALUE;
 import static com.example.stanley.redo1_fyp_app.Constants.SETTINGS_TABLE_NAME;
 
@@ -48,9 +49,9 @@ public class HomeActivity1 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title1);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title2);
         mTitle.setText("Ostiarius");
         setSupportActionBar(toolbar);
 
@@ -70,29 +71,32 @@ public class HomeActivity1 extends AppCompatActivity
         Button statistics = (Button)findViewById(R.id.button_statistics);
         statistics.setOnClickListener(this);
 
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
-                        finish();
-                        startActivity(myIntent);
-                    }
-                }, 100);
-            }
-        });
+//        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                (new Handler()).postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swipeRefreshLayout.setRefreshing(false);
+//                        Intent myIntent = new Intent(getApplicationContext(),HomeActivity1.class);
+//                        finish();
+//                        startActivity(myIntent);
+//                    }
+//                }, 100);
+//            }
+//        });
 
         dbHelper = new EventsData(this);
         // TO-DO select refreshtime from table
         loadRefreshValue();
 
-        Log.d(TAG, "This is newValue that should be 6000 for first iteration: " + new_refreshTime);
+
+        Log.d(TAG, "This is oldValue: " + old_refreshTime);
+        Log.d(TAG, "This is count: " + count);
+
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -101,16 +105,19 @@ public class HomeActivity1 extends AppCompatActivity
         AlarmManager alarm_default = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (count==0) {
             alarm_default.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_default);
-            new_refreshTime = old_refreshTime;
+            old_refreshTime = new_refreshTime;
             count++;
-        }Bundle getTime = getIntent().getExtras();
+
+        }
+        Bundle getTime = getIntent().getExtras();
         if (getTime != null){
             new_refreshTime = getTime.getInt("fetchOption");
+            Log.d(TAG, "This is newValue: " +new_refreshTime);
             if(new_refreshTime==old_refreshTime){
                 Toast.makeText(getApplicationContext(), "Cannot input time interval that is the same as before!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(HomeActivity1.this, SettingsActivity.class);
                 startActivity(i);
-            }else {
+            }else if (new_refreshTime!=old_refreshTime){
                 Toast.makeText(getApplicationContext(), "Changes saved!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Got from bundle extras: " + new_refreshTime);
 
@@ -144,7 +151,7 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt6.cancel(pi_opt6);
                         alarm_default.cancel(pi_default);
                         alarm_opt2.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt2);
-                        new_refreshTime = old_refreshTime;
+                        old_refreshTime = new_refreshTime;
                         break;
                     case 15000:
                         alarm_opt2.cancel(pi_opt2);
@@ -154,7 +161,8 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt6.cancel(pi_opt6);
                         alarm_default.cancel(pi_default);
                         alarm_opt1.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt1);
-                        new_refreshTime = old_refreshTime;
+                        Log.d(TAG, "I went into 15000");
+                        old_refreshTime = new_refreshTime;
                         break;
                     case 300000:
                         alarm_opt2.cancel(pi_opt2);
@@ -164,7 +172,7 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt6.cancel(pi_opt6);
                         alarm_default.cancel(pi_default);
                         alarm_opt3.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt3);
-                        new_refreshTime = old_refreshTime;
+                        old_refreshTime = new_refreshTime;
                         break;
                     case 600000:
                         alarm_opt2.cancel(pi_opt2);
@@ -174,7 +182,7 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt6.cancel(pi_opt6);
                         alarm_default.cancel(pi_default);
                         alarm_opt4.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt4);
-                        new_refreshTime = old_refreshTime;
+                        old_refreshTime = new_refreshTime;
                         break;
                     case 180000:
                         alarm_opt2.cancel(pi_opt2);
@@ -184,7 +192,7 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt6.cancel(pi_opt6);
                         alarm_default.cancel(pi_default);
                         alarm_opt5.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt5);
-                        new_refreshTime = old_refreshTime;
+                        old_refreshTime = new_refreshTime;
                         break;
                     case 3600000:
                         alarm_opt2.cancel(pi_opt2);
@@ -194,7 +202,7 @@ public class HomeActivity1 extends AppCompatActivity
                         alarm_opt1.cancel(pi_opt1);
                         alarm_default.cancel(pi_default);
                         alarm_opt6.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_opt6);
-                        new_refreshTime = old_refreshTime;
+                        old_refreshTime = new_refreshTime;
                         break;
                 }
 
@@ -329,11 +337,12 @@ public class HomeActivity1 extends AppCompatActivity
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 //        Cursor cursor = db.rawQuery(selectQuery, null);
-        Cursor cursor = db.query(SETTINGS_TABLE_NAME, new String[]{REFRESHVALUE}, null, null, null, null, null);
+        Cursor cursor = db.query(SETTINGS_TABLE_NAME, new String[]{REFRESHVALUE, COUNT}, null, null, null, null, null);
 
         if(cursor.moveToFirst()){
             do{
-                new_refreshTime = cursor.getInt(0);
+                old_refreshTime = cursor.getInt(0);
+                count = cursor.getInt(1);
             } while (cursor.moveToNext());
         }
 
@@ -343,8 +352,10 @@ public class HomeActivity1 extends AppCompatActivity
     }
 
     private void updateRefreshValue(int refreshValue){
+        Log.d(TAG, "Here is count at updateRefreshValue: " +count);
         ContentValues cv = new ContentValues();
         cv.put(REFRESHVALUE, refreshValue);
+        cv.put(COUNT, count);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.update(SETTINGS_TABLE_NAME, cv, _ID+"=1", null);
         db.close();

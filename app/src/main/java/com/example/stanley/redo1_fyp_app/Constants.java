@@ -18,6 +18,7 @@ public interface Constants extends BaseColumns {
 
     //columns in the database for SETTINGS
     public static final String REFRESHVALUE = "refreshvalue";
+    public static final String COUNT = "count";
 
 }
 

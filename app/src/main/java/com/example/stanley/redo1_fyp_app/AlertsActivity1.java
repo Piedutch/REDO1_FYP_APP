@@ -519,15 +519,15 @@ public class AlertsActivity1 extends AppCompatActivity
                         }
 
                         //  time = time.substring(9, 12);
-                        String PMnAM = time.substring(9, 12);
-
-                        if(PMnAM.equals("a.m")){
-                            time = time.substring(0,8);
-                            time = time + " AM";
-                        } else {
-                            time = time.substring(0,8);
-                            time = time + " PM";
-                        }
+//                        String PMnAM = time.substring(9, 12);
+//
+//                        if(PMnAM.equals("a.m")){
+//                            time = time.substring(0,8);
+//                            time = time + " AM";
+//                        } else {
+//                            time = time.substring(0,8);
+//                            time = time + " PM";
+//                        }
 
                         itemnamelist.add(item_name);
 

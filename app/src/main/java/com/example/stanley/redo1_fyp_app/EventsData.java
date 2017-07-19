@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static android.provider.BaseColumns._ID;
 import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
+import static com.example.stanley.redo1_fyp_app.Constants.COUNT;
 import static com.example.stanley.redo1_fyp_app.Constants.Date1;
 import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
 import static com.example.stanley.redo1_fyp_app.Constants.REFRESHVALUE;
@@ -20,7 +21,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Time1;
  */
 
 public class EventsData extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "events6.db"; //events2, events1
+    private static final String DATABASE_NAME = "events8.db"; //events2, events1
         private static final int DATABASE_VERSION = 1;
 
     /*Create a helper object for the Events database*/
@@ -35,10 +36,10 @@ public class EventsData extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + SETTINGS_TABLE_NAME + " (" + _ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REFRESHVALUE
-                + " INT NOT NULL);");
+                + " INT NOT NULL, " + COUNT + " INT NOT NULL);");
 
         db.execSQL("INSERT INTO " + SETTINGS_TABLE_NAME + " (" + REFRESHVALUE
-                + ") VALUES(60000);");
+                + ", " +COUNT + " ) VALUES(60000, 0);");
     }
 
     //@Override

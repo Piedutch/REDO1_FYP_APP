@@ -18,12 +18,13 @@ public class ParamRequest extends StringRequest {
     private static final String PARAM_REQUEST_URL = "http://128.199.75.229/push_notification.php";
     private Map<String, String> params;
 
-    public ParamRequest(String item_name, String asset_no, Response.Listener<String> listener){
+    public ParamRequest(String item_name, String asset_no, String token, Response.Listener<String> listener){
         super(Method.POST, PARAM_REQUEST_URL, listener, null);
         Log.d("DEBUG","I am in ParamRequest");
         params = new HashMap<>();
         params.put("item_name", item_name);
         params.put("asset_no", asset_no);
+        params.put("token", token);
         Log.d("DEBUG","Finished ParamRequest");
     }
     @Override

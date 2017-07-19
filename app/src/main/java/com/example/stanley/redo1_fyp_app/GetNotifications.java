@@ -11,6 +11,7 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,7 +121,7 @@ public class GetNotifications extends Service {
                                 }
                             }
                         };
-                            ParamRequest paramRequest = new ParamRequest(item_name, asset_no, responseListener);
+                            ParamRequest paramRequest = new ParamRequest(item_name, asset_no, FirebaseInstanceId.getInstance().getToken(),responseListener);
 //                        ParamRequest paramRequest = new ParamRequest(aa, ff, responseListener);
                             RequestQueue queue = Volley.newRequestQueue(GetNotifications.this);
                             queue.add(paramRequest);
