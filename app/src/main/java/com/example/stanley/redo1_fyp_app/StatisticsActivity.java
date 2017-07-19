@@ -158,7 +158,7 @@ public class StatisticsActivity extends Activity {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonStr1);
 
-                    //getting json array node
+                    //getting json array node?
                     JSONArray array = jsonObject.getJSONArray("currentcount");
 
                     //looping through all contacts
