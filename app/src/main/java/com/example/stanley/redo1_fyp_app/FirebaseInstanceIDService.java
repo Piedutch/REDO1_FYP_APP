@@ -34,6 +34,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
             @Override
             public void onResponse(String response){
                 try{
+                    Log.d("DEBUG", "["+response+"]");
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("Insert Successful");
 

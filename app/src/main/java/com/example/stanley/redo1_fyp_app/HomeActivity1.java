@@ -238,7 +238,7 @@ public class HomeActivity1 extends AppCompatActivity
                 startActivity(new Intent(this, StreamingActivity.class));
                 break;
             case R.id.button_statistics:
-                //startActivity(new Intent(this, SystemDiagnosticsActivity.class));
+                startActivity(new Intent(this, StatisticsActivity.class));
                 break;
         }}
 /*    @Override

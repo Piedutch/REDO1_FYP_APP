@@ -16,4 +16,15 @@
     <color name ="maintenance">#f69847</color>
     <color name ="map_status">#00BFFF</color>
 
+    <!--<color name="pie1">#FF0000</color>-->
+    <!--<color name="pie2">#00FF00</color>-->
+    <!--<color name="pie3">#0000FF</color>-->
+    <!--<color name="pie4">#FFFF00</color>-->
+    <!--<color name="pie5">#00FFFF</color>-->
+    <!--<color name="pie6">#FF00FF</color>-->
+    <!--<color name="pie7">#FFD700</color>-->
+    <!--<color name="pie8">#00CED1</color>-->
+    <!--<color name="pie9">#4B0082</color>-->
+    <!--<color name="pie10">#8B008B</color>-->
+
 </resources>

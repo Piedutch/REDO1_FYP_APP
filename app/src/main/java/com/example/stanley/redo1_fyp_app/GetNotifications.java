@@ -87,7 +87,7 @@ public class GetNotifications extends Service {
 
                         item_name = p.getString("item_name");
                         asset_no = p.getString("asset_no");
-                        new_alert_no = p.getInt("alert_no");
+                        new_alert_no = p.getInt("id");
                         item_name = item_name + "";
                         if (item_name.length() > 20) {
                             item_name = item_name.substring(0, 20);
