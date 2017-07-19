@@ -92,6 +92,7 @@ public class AlertsActivity1 extends AppCompatActivity
     private String globalvar_itemname;
     private String globalvar_time;
     private String globalvar_date;
+    private String globalvar_maintenance;
 
     private long id_;
     private String alertno_;
@@ -119,6 +120,7 @@ public class AlertsActivity1 extends AppCompatActivity
     List<String> timelist=new ArrayList<String>();
     List<String> datelist=new ArrayList<String>();
     List<String> picturelist=new ArrayList<String>();
+    List<String> maintenancelist=new ArrayList<String>();
 
     private SimpleAdapter adapter;
     @Override
@@ -496,6 +498,14 @@ public class AlertsActivity1 extends AppCompatActivity
                         String item_name = c.getString("item_name");
                         String asset_no = c.getString("asset_no");
                         String date = c.getString("date");
+                        String maintenance_mode = c.getString("maintenance_mode");
+
+                        if(maintenance_mode.equals("0")){
+                            maintenance_mode = "";
+                        }
+                        if(maintenance_mode.equals("1")){
+                            maintenance_mode = "Under Maintenance";
+                        }
 
                         try {
                             SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm:ss");
@@ -535,6 +545,7 @@ public class AlertsActivity1 extends AppCompatActivity
                         HashMap<String, String> contact = new HashMap<>();
 
                         //adding each child node to hashmap
+                        maintenancelist.add(maintenance_mode);
                         alertnolist.add(alert_no);
                         assetnolist.add(asset_no);
                         timelist.add(time);
@@ -544,6 +555,7 @@ public class AlertsActivity1 extends AppCompatActivity
                         contact.put("asset_no",asset_no);
                         contact.put("date",date);
                         contact.put("alert_no",alert_no);
+                        contact.put("maintenance_mode",maintenance_mode);
 
                         //adding contact to contact list
                         contactList.add(contact);
@@ -583,8 +595,8 @@ public class AlertsActivity1 extends AppCompatActivity
             //updating json data to listview
             adapter = new SimpleAdapter(
                     AlertsActivity1.this, contactList,
-                    R.layout.list_item, new String[]{"time","item_name","asset_no","alert_no","date"},
-                    new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no,R.id.date});
+                    R.layout.list_item, new String[]{"time","item_name","asset_no","alert_no","date","maintenance_mode"},
+                    new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no,R.id.date,R.id.maintenancestatus1});
             lv.setAdapter(adapter);
         }
     }
@@ -661,7 +673,6 @@ public class AlertsActivity1 extends AppCompatActivity
                     }
                 });
             }
-
             return null;
         }
         @Override

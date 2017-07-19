@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -107,22 +108,42 @@
 
     <TextView
         android:id="@+id/alert_no"
+        android:textSize="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_marginEnd="-4dp"
+        android:layout_alignBaseline="@+id/taptoview_alerts"
+        android:layout_alignBottom="@+id/taptoview_alerts"
+        android:layout_toStartOf="@+id/arrow" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/alert_no"
-        android:layout_alignLeft="@+id/alert_no"
-        android:layout_alignStart="@+id/alert_no"
         android:visibility="invisible"/>
+<!--
+    android:layout_alignTop="@+id/alert_no"
+    android:layout_alignStart="@+id/maintenancestatus1"-->
 
+    <TextView
+        android:id="@+id/maintenancestatus1"
+        android:textSize="10sp"
+        android:textColor="@color/maintenance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginRight="50dp"
+        android:layout_above="@+id/timestamp_alerts"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@mipmap/ic_bulletin_point"
+        android:layout_alignTop="@+id/alert_no"
+        android:layout_alignEnd="@+id/maintenancestatus1"
+        android:layout_alignBottom="@+id/taptoview_alerts" />
 
 </RelativeLayout>
