@@ -577,7 +577,7 @@ public class AlertsActivity1 extends AppCompatActivity
                     @Override
                     public void run() {
                         Toast.makeText(AlertsActivity1.this,
-                                "Couldn't get json from server.",
+                                "Couldn't retrieve data from server.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
