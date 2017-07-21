@@ -131,6 +131,10 @@
             android:name=".GetNotifications"
             android:exported="false"
             android:enabled="true"/>
+        <service
+            android:name=".GetSysDiagNotifications"
+            android:exported="false"
+            android:enabled="true"/>
     </application>
 
 </manifest>

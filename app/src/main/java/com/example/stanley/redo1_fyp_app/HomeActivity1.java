@@ -103,6 +103,10 @@ public class HomeActivity1 extends AppCompatActivity
         Intent intent = new Intent(HomeActivity1.this, GetNotifications.class);
         PendingIntent pi_default = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
         AlarmManager alarm_default = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent2 = new Intent(HomeActivity1.this, GetSysDiagNotifications.class);
+        PendingIntent pi_sysdiag = PendingIntent.getService(HomeActivity1.this, 0, intent2, 0);
+        AlarmManager alarm_sysdiag = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 21600000, pi_sysdiag);
         if (count==0) {
             alarm_default.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_default);
             old_refreshTime = new_refreshTime;
