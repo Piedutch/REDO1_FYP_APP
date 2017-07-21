@@ -58,7 +58,7 @@ public class HomeActivity1 extends AppCompatActivity
 
        // new GetContacts().execute();
 
-        Button alertbutton = (Button)findViewById(R.id.button_alert);
+/*        Button alertbutton = (Button)findViewById(R.id.button_alert);
         alertbutton.setOnClickListener(this);
         Button archivealertbutton = (Button)findViewById(R.id.button_archivealert);
         archivealertbutton.setOnClickListener(this);
@@ -69,7 +69,7 @@ public class HomeActivity1 extends AppCompatActivity
         Button webcam = (Button)findViewById(R.id.button_webcam);
         webcam.setOnClickListener(this);
         Button statistics = (Button)findViewById(R.id.button_statistics);
-        statistics.setOnClickListener(this);
+        statistics.setOnClickListener(this);*/
 
 //        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 //        swipeRefreshLayout.setColorSchemeResources(R.color.refresh,R.color.refresh1,R.color.refresh2);
@@ -234,22 +234,22 @@ public class HomeActivity1 extends AppCompatActivity
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.button_alert:
+            case R.id.alerts_row:
                 startActivity(new Intent(this, AlertsActivity1.class));
                 break;
-            case R.id.button_archivealert:
+            case R.id.archivealerts_row:
                 startActivity(new Intent(this, ArchiveAlerts.class));
                 break;
-            case R.id.button_maintenance:
+            case R.id.assetsinfo_row:
                 startActivity(new Intent(this, MaintenanceMode.class));
                 break;
-            case R.id.button_sysdiag:
+            case R.id.sysdia_row:
                 startActivity(new Intent(this, SystemDiagnosticsActivity1.class));
                 break;
-            case R.id.button_webcam:
+            case R.id.livestream_row:
                 startActivity(new Intent(this, StreamingActivity.class));
                 break;
-            case R.id.button_statistics:
+            case R.id.statistics_row:
                 startActivity(new Intent(this, StatisticsActivity.class));
                 break;
         }}

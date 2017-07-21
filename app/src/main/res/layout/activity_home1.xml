@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.stanley.redo1_fyp_app.MainActivity"
-    tools:showIn="@layout/app_bar_main">
-
-    <!--    <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:text="@string/welcome"
-            android:textColor="#848484"
-            android:fontFamily="sadsad"
-            android:textSize="40sp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/to_ostiarius"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/to_ostiarius"
-            android:textColor="#CDCDCD"
-            android:textSize="24sp"
-            android:layout_below="@+id/welcome"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp" />-->
+    android:paddingTop="70dp">
 
     <TextView
         android:id="@+id/overview_alerts"
@@ -42,218 +14,296 @@
         android:text="@string/alert_overview"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/to_ostiarius"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/button_alert"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginLeft="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/overview_alerts"
-        android:stateListAnimator="@null"/>
-
-    <ImageView
-        android:id = "@+id/alerts"
-        android:layout_height="61dp"
-        android:layout_width="61dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/lastestalerts"
-        android:background="@null"
-        android:layout_marginStart="55dp"
-        android:layout_alignTop="@+id/button_alert"
-        android:layout_alignStart="@+id/button_alert" />
-
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/alertstext"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Alerts"
-        android:layout_below="@+id/alerts"
-        android:layout_alignStart="@+id/alerts"
-        android:layout_marginTop="14dp"
-        android:layout_marginStart="10dp" />
+        android:layout_marginTop="20dp">
 
-    <Button
-        android:id="@+id/button_archivealert"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="2dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/overview_alerts"
-        android:stateListAnimator="@null"/>
+        <LinearLayout
+            android:id="@+id/alerts_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
 
-    <ImageView
-        android:id = "@+id/archivedalerts"
-        android:layout_height="75dp"
-        android:layout_width="75dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/lastestarchive"
-        android:background="@null"
-        android:layout_marginStart="232dp"
-        android:layout_alignTop="@+id/button_alert"
-        android:layout_alignStart="@+id/button_alert" />
+            <ImageView
+                android:src="@drawable/lastestalerts"
+                android:id="@+id/alerts_row_image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/archivetext"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/alerts_row_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alerts"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/archivealerts_row"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="1.25dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/archivealerts_row_image"
+                android:src="@drawable/lastestarchive"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/archivealerts_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Archived Alerts"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Archived Alerts"
-        android:layout_below="@+id/archivedalerts"
-        android:layout_alignStart="@+id/archivedalerts"
+        android:layout_marginTop="1.25dp"
+        android:layout_marginBottom="1.25dp">
+
+        <LinearLayout
+            android:id="@+id/sysdia_row"
+            android:layout_width="0dp"
+            android:layout_marginBottom="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/sysdia_row_image"
+                android:src="@drawable/lastestsysdiag"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/sysdia_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="System Diagnostics"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/assetsinfo_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="1.25dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/assetsinfo_row_image"
+                android:src="@drawable/lastestmain"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/assetsinfo_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Assets Info"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:layout_marginStart="-12dp" />
+        android:layout_marginBottom="1.25dp">
 
-    <Button
-        android:id="@+id/button_maintenance"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/button_archivealert"
-        android:layout_alignParentRight="true"
-        android:stateListAnimator="@null"/>
+        <LinearLayout
+            android:id="@+id/statistics_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
 
-    <ImageView
-        android:id = "@+id/maintenance"
-        android:layout_height="67dp"
-        android:layout_width="67dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/lastestmain"
-        android:background="@null"
-        android:layout_marginStart="55dp"
-        android:layout_alignTop="@+id/button_maintenance"
-        android:layout_alignStart="@+id/button_maintenance" />
+            <ImageView
+                android:id="@+id/statistics_row_image"
+                android:src="@drawable/latestpiechart"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/maintenancetext"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/statistics_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Statistics"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/livestream_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="1.25dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/livestream_row_image"
+                android:src="@drawable/lastestwebcam"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/livestream_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Live Stream"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>
+<!--    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Assets Info"
-        android:layout_below="@+id/maintenance"
-        android:layout_alignStart="@+id/maintenance"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="-9dp" />
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1.25dp">
 
-    <Button
-        android:id="@+id/button_sysdiag"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="2dp"
-        android:layout_below="@+id/button_alert"
-        android:layout_alignParentLeft="true"
-        android:stateListAnimator="@null"/>
+        <LinearLayout
+            android:id="@+id/statistics_row1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
 
-    <ImageView
-        android:id = "@+id/sysdiag"
-        android:layout_height="67dp"
-        android:layout_width="67dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/lastestsysdiag"
-        android:background="@null"
-        android:layout_marginStart="57dp"
-        android:layout_alignTop="@+id/button_sysdiag"
-        android:layout_alignStart="@+id/button_sysdiag" />
+            <ImageView
+                android:id="@+id/statistics_row_image1"
+                android:src="@drawable/latestpiechart"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/sysdiagtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="System Diagnostics"
-        android:layout_below="@+id/sysdiag"
-        android:layout_alignStart="@+id/sysdiag"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="-25dp" />
+            <TextView
+                android:id="@+id/statistics_row_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Statistics"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/button_webcam"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/button_maintenance"
-        android:layout_alignParentRight="true"
-        android:stateListAnimator="@null"/>
+        <LinearLayout
+            android:id="@+id/livestream_row1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="1.25dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/button_selector"
+            android:padding="13dp"
+            android:onClick="onClick">
 
-    <ImageView
-        android:id = "@+id/webcam"
-        android:layout_height="57dp"
-        android:layout_width="57dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/lastestwebcam"
-        android:background="@null"
-        android:layout_marginStart="60dp"
-        android:layout_alignTop="@+id/button_webcam"
-        android:layout_alignStart="@+id/button_webcam" />
+            <ImageView
+                android:id="@+id/livestream_row_image1"
+                android:src="@drawable/lastestwebcam"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/webcamtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Live Stream"
-        android:layout_below="@+id/webcam"
-        android:layout_alignStart="@+id/webcam"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="-11dp" />
-
-    <Button
-        android:id="@+id/button_statistics"
-        android:background="@drawable/button_selector"
-        android:layout_width="176dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="2dp"
-        android:layout_below="@+id/button_sysdiag"
-        android:layout_alignParentLeft="true"
-        android:stateListAnimator="@null"/>
-
-    <ImageView
-        android:id = "@+id/statistics"
-        android:layout_height="60dp"
-        android:layout_width="60dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="28dp"
-        android:src="@drawable/latestpiechart"
-        android:background="@null"
-        android:layout_marginStart="57dp"
-        android:layout_alignTop="@+id/button_statistics"
-        android:layout_alignStart="@+id/button_statistics" />
-
-    <TextView
-        android:textColor="@color/textColorPrimary"
-        android:id="@+id/statisticstext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Statistics"
-        android:layout_below="@+id/statistics"
-        android:layout_alignStart="@+id/statistics"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="1dp" />
-
-</RelativeLayout>
+            <TextView
+                android:id="@+id/livestream_row_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Live Stream"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>-->
+</LinearLayout>

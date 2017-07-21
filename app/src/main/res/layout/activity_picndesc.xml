@@ -1,98 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/phone_icon"
-        android:layout_width="1500px"
-        android:layout_height="800px"
-        android:layout_gravity="center"
-        android:layout_marginTop="3dp"
-        android:src="@drawable/loading_spinner405x211"
-        />
-<!--android:src="@drawable/theft"-->
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="1dp"
-        android:textSize="28sp"
-        android:text="Description"
-        android:textColor="#FFFFFF"/>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <View
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="-15dp"
-        android:layout_marginLeft="270dp"
-        android:background="@color/textColorPrimary"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <View
-        android:layout_width="95dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="-3dp"
-        android:layout_marginLeft="5dp"
-        android:background="@color/textColorPrimary"/>
+        <ImageView
+            android:id="@+id/phone_icon"
+            android:layout_width="1500px"
+            android:layout_height="800px"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/loading_spinner405x211"
+            />
+    <!--android:src="@drawable/theft"-->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="1dp"
+            android:textSize="28sp"
+            android:text="Description"
+            android:textColor="#FFFFFF"/>
 
-    <TextView
-        android:id="@+id/itemidheader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="35dp"
-        android:textSize="20sp"
-        android:text="ITEM ID:"
-        android:textColor="@color/itemheader"/>
+        <View
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginLeft="270dp"
+            android:background="@color/textColorPrimary"/>
 
-    <TextView
-        android:id="@+id/itemid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="1dp"
-        android:textSize="20sp"
-        android:text="#5548"
-        android:textColor="@color/textColorPrimary"/>
+        <View
+            android:layout_width="95dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/textColorPrimary"/>
 
-    <TextView
-        android:id="@+id/itemnameheader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="35dp"
-        android:textSize="20sp"
-        android:text="ITEM NAME:"
-        android:textColor="@color/itemheader"/>
-    <TextView
-        android:id="@+id/itemname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="1dp"
-        android:textSize="20sp"
-        android:text="LG Smart TV"
-        android:textColor="@color/textColorPrimary"/>
+        <TextView
+            android:id="@+id/itemidheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="35dp"
+            android:textSize="20sp"
+            android:text="ITEM ID:"
+            android:textColor="@color/itemheader"/>
 
-    <TextView
-        android:id="@+id/timestampheader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="35dp"
-        android:textSize="20sp"
-        android:text="TIMESTAMP:"
-        android:textColor="@color/itemheader"/>
+        <TextView
+            android:id="@+id/itemid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="1dp"
+            android:textSize="20sp"
+            android:text="#5548"
+            android:textColor="@color/textColorPrimary"/>
 
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="1dp"
-        android:textSize="20sp"
-        android:text="4/5/2017  3:39pm"
-        android:textColor="@color/textColorPrimary"/>
+        <TextView
+            android:id="@+id/itemnameheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="35dp"
+            android:textSize="20sp"
+            android:text="ITEM NAME:"
+            android:textColor="@color/itemheader"/>
+        <TextView
+            android:id="@+id/itemname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="1dp"
+            android:textSize="20sp"
+            android:text="LG Smart TV"
+            android:textColor="@color/textColorPrimary"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/timestampheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="35dp"
+            android:textSize="20sp"
+            android:text="TIMESTAMP:"
+            android:textColor="@color/itemheader"/>
+
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="1dp"
+            android:textSize="20sp"
+            android:text="4/5/2017  3:39pm"
+            android:textColor="@color/textColorPrimary"/>
+    </LinearLayout>
+</ScrollView>
