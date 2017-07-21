@@ -76,6 +76,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Date1;
 import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
+import static com.example.stanley.redo1_fyp_app.Constants.Maintenance_status1;
 import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
 import static com.example.stanley.redo1_fyp_app.Constants.Time1;
 
@@ -370,6 +371,12 @@ public class AlertsActivity1 extends AppCompatActivity
                                     break;
                                 }
                             }
+                            for(int j  = 0; j < maintenancelist.size(); j++){
+                                if(j == position){
+                                    globalvar_maintenance = maintenancelist.get(position);
+                                    break;
+                                }
+                            }
                             // Retrieving Picture from URL
                             new GetPhoto().execute();
                         }
@@ -398,6 +405,8 @@ public class AlertsActivity1 extends AppCompatActivity
         values.put(Item_Name1, globalvar_itemname);
         values.put(Time1, globalvar_time);
         values.put(Date1,globalvar_date);
+        values.put(Maintenance_status1,globalvar_maintenance);
+
         values.put("Image1",image);
         db.insertOrThrow(TABLE_NAME, null, values);
         runOnUiThread(new Runnable() {

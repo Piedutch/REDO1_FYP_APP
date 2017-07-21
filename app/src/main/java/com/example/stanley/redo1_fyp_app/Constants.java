@@ -15,6 +15,7 @@ public interface Constants extends BaseColumns {
     public static final String Item_Name1 = "item_name";
     public static final String Time1 = "time";
     public static final String Date1 = "date";
+    public static final String Maintenance_status1 = "maintenance_status";
 
     //columns in the database for SETTINGS
     public static final String REFRESHVALUE = "refreshvalue";

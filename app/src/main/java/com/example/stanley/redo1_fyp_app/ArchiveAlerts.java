@@ -71,6 +71,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Alert_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.Date1;
 import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
+import static com.example.stanley.redo1_fyp_app.Constants.Maintenance_status1;
 import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
 import static com.example.stanley.redo1_fyp_app.Constants.Time1;
 
@@ -89,6 +90,7 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
     private String itemname_;
     private String time_;
     private String date_;
+    private String maintenance_;
     private ProgressDialog pDialog;
     private String TAG = MainActivity.class.getSimpleName();
 
@@ -98,8 +100,9 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
     List<String> itemnamelist=new ArrayList<String>();
     List<String> timelist=new ArrayList<String>();
     List<String> datelist=new ArrayList<String>();
+    List<String> maintenancelist=new ArrayList<String>();
 
-    private static String[] FROM= {_ID, Alert_No1, Asset_No1, Item_Name1, Time1,Date1,"Image1"};
+    private static String[] FROM= {_ID, Alert_No1, Asset_No1, Item_Name1, Time1,Date1,Maintenance_status1,"Image1"};
     private static String ORDER_BY = Alert_No1 + " DESC";
     private EventsData events;
 
@@ -292,6 +295,7 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
             itemname_ = cursor.getString(3);
             time_ = cursor.getString(4);
             date_ = cursor.getString(5);
+            maintenance_ = cursor.getString(6);
 
             itemnamelist.add(itemname_);
 
@@ -305,6 +309,7 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
             assetnolist.add(assetno_);
             timelist.add(time_);
             datelist.add(date_);
+            maintenancelist.add(maintenance_);
 
             HashMap<String, String> contact = new HashMap<>();
             //For displaying
@@ -313,6 +318,7 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
             contact.put("itemname_",itemname_);
             contact.put("time_",time_);
             contact.put("date_",date_);
+            contact.put("maintenance_",maintenance_);
 
             contactList.add(contact);
         }
@@ -327,8 +333,8 @@ public class ArchiveAlerts extends AppCompatActivity implements NavigationView.O
         });*/
         adapter = new SimpleAdapter(
                 ArchiveAlerts.this, contactList,
-                R.layout.list_item_archive, new String[]{"time_","itemname_","assetno_","alertno_"},
-                new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no});
+                R.layout.list_item_archive, new String[]{"time_","itemname_","assetno_","alertno_","maintenance_"},
+                new int[]{R.id.timestamp_alerts, R.id.description_alerts, R.id.asset,R.id.alert_no,R.id.maintenancestatus1});
         lv.setAdapter(adapter);
 
 

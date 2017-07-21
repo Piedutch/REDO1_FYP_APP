@@ -10,6 +10,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Asset_No1;
 import static com.example.stanley.redo1_fyp_app.Constants.COUNT;
 import static com.example.stanley.redo1_fyp_app.Constants.Date1;
 import static com.example.stanley.redo1_fyp_app.Constants.Item_Name1;
+import static com.example.stanley.redo1_fyp_app.Constants.Maintenance_status1;
 import static com.example.stanley.redo1_fyp_app.Constants.REFRESHVALUE;
 import static com.example.stanley.redo1_fyp_app.Constants.SETTINGS_TABLE_NAME;
 import static com.example.stanley.redo1_fyp_app.Constants.TABLE_NAME;
@@ -21,7 +22,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Time1;
  */
 
 public class EventsData extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "events8.db"; //events2, events1
+    private static final String DATABASE_NAME = "events.db"; //events2, events1, 9
         private static final int DATABASE_VERSION = 1;
 
     /*Create a helper object for the Events database*/
@@ -32,7 +33,8 @@ public class EventsData extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL("CREATE TABLE " + TABLE_NAME +" (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Alert_No1 + " TEXT NOT NULL,"
-                + Asset_No1 + " TEXT NOT NULL," +Item_Name1+ " TEXT NOT NULL,"+Time1+ " TEXT NOT NULL," +Date1+" TEXT NOT NULL,"+"Image1"+" BLOB);");
+                + Asset_No1 + " TEXT NOT NULL," +Item_Name1+ " TEXT NOT NULL,"+Time1+ " TEXT NOT NULL," +Date1+" TEXT NOT NULL,"+Maintenance_status1+" TEXT,"+"Image1"+" BLOB);");
+
 
         db.execSQL("CREATE TABLE " + SETTINGS_TABLE_NAME + " (" + _ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REFRESHVALUE

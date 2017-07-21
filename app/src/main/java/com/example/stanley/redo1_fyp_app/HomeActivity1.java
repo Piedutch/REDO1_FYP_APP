@@ -55,7 +55,6 @@ public class HomeActivity1 extends AppCompatActivity
         mTitle.setText("Ostiarius");
         setSupportActionBar(toolbar);
 
-
        // new GetContacts().execute();
 
 /*        Button alertbutton = (Button)findViewById(R.id.button_alert);
