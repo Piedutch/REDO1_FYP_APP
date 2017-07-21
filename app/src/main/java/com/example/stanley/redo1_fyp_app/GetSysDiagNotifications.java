@@ -69,7 +69,7 @@ public class GetSysDiagNotifications extends Service{
             String jsonStr = sh.makeServiceCall(urlParams);
             Log.e(TAG, "Response from url: " + jsonStr);
 
-            if (jsonStr != null && jsonStr.length() < 1) {
+            if (jsonStr != null && jsonStr.length() < 2) {
                 present_bit = 0;
                 Log.d(TAG, "Did it come here?");
             } else if (jsonStr != null) {
