@@ -64,7 +64,6 @@ public class GetSysDiagNotifications extends Service{
     private class GetValues extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Log.d(TAG, "Initial Counter Value supposed to be 0, it is: " + counter);
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(urlParams);
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -72,7 +71,7 @@ public class GetSysDiagNotifications extends Service{
             if (jsonStr != null && jsonStr.length() < 2) {
                 present_bit = 0;
                 Log.d(TAG, "Did it come here?");
-            } else if (jsonStr != null) {
+            } else if (jsonStr != null && jsonStr.length()>2) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonStr);
                     JSONArray params = jsonObject.getJSONArray("Available");
