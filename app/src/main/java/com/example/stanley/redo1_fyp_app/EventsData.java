@@ -22,7 +22,7 @@ import static com.example.stanley.redo1_fyp_app.Constants.Time1;
  */
 
 public class EventsData extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "events.db"; //events2, events1, 9
+    private static final String DATABASE_NAME = "events.db";
         private static final int DATABASE_VERSION = 1;
 
     /*Create a helper object for the Events database*/
