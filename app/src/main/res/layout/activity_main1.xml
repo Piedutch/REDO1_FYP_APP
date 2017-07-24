@@ -10,7 +10,7 @@
     tools:context="com.example.stanley.redo1_fyp_app.MainActivity">
 
     <include
-        layout="@layout/app_bar_main1"
+        layout="@layout/app_bar_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -25,7 +25,5 @@
         app:menu="@menu/activity_main_drawer" >
 
     </android.support.design.widget.NavigationView>
-
-    <include layout="@layout/activity_home1" />
 
 </android.support.v4.widget.DrawerLayout>
