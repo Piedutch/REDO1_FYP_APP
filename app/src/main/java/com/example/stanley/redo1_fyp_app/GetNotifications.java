@@ -35,6 +35,7 @@ public class GetNotifications extends Service {
     private int counter = 0;
     public void onCreate() {
         isRunning = true;
+        //hello world
         Log.d(TAG, "It comes into GetNotifications.java");
         Log.d(TAG, "In onCreate(), Old alert number is " + old_alert_no);
     }
