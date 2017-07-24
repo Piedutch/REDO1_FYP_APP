@@ -200,7 +200,11 @@ public class StatisticsActivity extends SwipeBackActivity {
     private void setTextView(int no_of_alerts){
 //        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 //        String Date = sdf.format(new Date());
-        today_alerts.setText("There are " + no_of_alerts + " alerts today - " + date + ".");
+        if(no_of_alerts==0){
+            today_alerts.setText("There are no alerts today.");
+        } else {
+            today_alerts.setText("There are " + no_of_alerts + " alerts today - " + date + ".");
+        }
     }
 
     private void setData(ArrayList<PieEntry> yArray, ArrayList<String> xVals) {
