@@ -19,7 +19,7 @@
         android:layout_below="@+id/grabTimeTextView"
         android:layout_marginTop="10dp"
         android:layout_alignParentStart="@+id/grabTimeTextView"
-        android:text="The schedule specified will be adhered to when retrieving information. [DEFAULT:1 min]"
+        android:text="The schedule specified will be adhered to when retrieving information for alerts. [DEFAULT:1 min]"
         />
     <Button
         android:layout_width="350dp"

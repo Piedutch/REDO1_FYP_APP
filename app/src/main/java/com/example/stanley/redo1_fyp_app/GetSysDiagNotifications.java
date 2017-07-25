@@ -68,19 +68,24 @@ public class GetSysDiagNotifications extends Service{
             String jsonStr = sh.makeServiceCall(urlParams);
             Log.e(TAG, "Response from url: " + jsonStr);
 
-            if (jsonStr != null && jsonStr.length() < 2) {
+            if (jsonStr != null && jsonStr.length() < 4) {
                 present_bit = 0;
                 Log.d(TAG, "Did it come here?");
             } else if (jsonStr != null && jsonStr.length()>2) {
+//            if(jsonStr!=null){
                 try {
                     JSONObject jsonObject = new JSONObject(jsonStr);
                     JSONArray params = jsonObject.getJSONArray("Available");
-
+//                if (params == null){
+//                    present_bit = 0;
+//                    Log.d(TAG, "Did it come here?");
+//                } else {
                     for (int i = 0; i < params.length(); i++) {
                         JSONObject p = params.getJSONObject(i);
 
                         present_bit = p.getInt("camera_status");
                     }
+//                }
                 } catch (final JSONException e) {
                     Log.e(TAG, "JSON parsing error: " + e.getMessage());
                 }

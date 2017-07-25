@@ -99,16 +99,19 @@ public class HomeActivity1 extends AppCompatActivity
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
+        Intent intent2 = new Intent(HomeActivity1.this, GetSysDiagNotifications.class);
+//        if(PendingIntent.getService(HomeActivity1.this, 1, intent2, PendingIntent.FLAG_NO_CREATE) == null) {
+            PendingIntent pi_sysdiag = PendingIntent.getService(HomeActivity1.this, 0, intent2, PendingIntent.FLAG_ONE_SHOT);
+            AlarmManager alarm_sysdiag = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//            alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 10800000, pi_sysdiag);
+            alarm_sysdiag.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_HALF_DAY, pi_sysdiag);
+//        }
         Intent intent = new Intent(HomeActivity1.this, GetNotifications.class);
         PendingIntent pi_default = PendingIntent.getService(HomeActivity1.this, 0, intent, 0);
         AlarmManager alarm_default = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent2 = new Intent(HomeActivity1.this, GetSysDiagNotifications.class);
-        PendingIntent pi_sysdiag = PendingIntent.getService(HomeActivity1.this, 0, intent2, 0);
-        AlarmManager alarm_sysdiag = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        if(PendingIntent.getService(HomeActivity1.this, 0, intent, PendingIntent.FLAG_NO_CREATE) == null) {
-            alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 10800000, pi_sysdiag);
-//        }
+
         if (count==0) {
+            Log.d(TAG, "Do i even come inside the counter?");
             alarm_default.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_default);
             old_refreshTime = new_refreshTime;
             count++;
