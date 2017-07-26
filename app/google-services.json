@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "204813628598",
-    "firebase_url": "https://ostiarius-fyp.firebaseio.com",
-    "project_id": "ostiarius-fyp",
-    "storage_bucket": "ostiarius-fyp.appspot.com"
+    "project_number": "993340824669",
+    "firebase_url": "https://ostiarius-fyp-e7188.firebaseio.com",
+    "project_id": "ostiarius-fyp-e7188",
+    "storage_bucket": "ostiarius-fyp-e7188.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:204813628598:android:b88374d43ad8b2c6",
+        "mobilesdk_app_id": "1:993340824669:android:b88374d43ad8b2c6",
         "android_client_info": {
           "package_name": "com.example.stanley.redo1_fyp_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "204813628598-bmus2462tf1jrrvphv9ip0bb2tbfl3o0.apps.googleusercontent.com",
+          "client_id": "993340824669-8navs73e4einit9q1pbcqa153r8hn8pl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDmTrPMm4eUgcLB5ii19DMe3uzOzkugWFc"
+          "current_key": "AIzaSyB9y1WE0R94sZAYJJu7G9Hrac6JoN4JLh4"
         }
       ],
       "services": {
