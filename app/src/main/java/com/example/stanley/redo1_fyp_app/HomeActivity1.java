@@ -114,7 +114,7 @@ public class HomeActivity1 extends AppCompatActivity
             Log.d(TAG, "Do i even come inside the counter?");
             alarm_default.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), new_refreshTime, pi_default);
 //            alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_HALF_DAY, pi_sysdiag);
-            alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.ELAPSED_REALTIME, pi_sysdiag);
+            alarm_sysdiag.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60000, pi_sysdiag);
             old_refreshTime = new_refreshTime;
             count++;
             updateCounter(count);
