@@ -23,6 +23,7 @@ import org.json.JSONObject;
 public class GetSysDiagNotifications extends Service{
     private String TAG = GetSysDiagNotifications.class.getSimpleName();
     private boolean isRunning = false;
+    private JSONArray params;
     // random value for initialization
     private int present_bit = 1;
     private static String urlParams = "http://128.199.75.229/get_pi_status.php";
@@ -67,15 +68,22 @@ public class GetSysDiagNotifications extends Service{
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(urlParams);
             Log.e(TAG, "Response from url: " + jsonStr);
+            try{
+                JSONObject jsonObject = new JSONObject(jsonStr);
+                params = jsonObject.getJSONArray("Available");
+            }catch (JSONException e){
+                Log.e(TAG, "JSON parsing error: " + e.getMessage());
+            }
 
-            if (jsonStr != null && jsonStr.length() < 4) {
+            //&& jsonStr.length() < 4
+
+            if (params == null) {
                 present_bit = 0;
                 Log.d(TAG, "Did it come here?");
-            } else if (jsonStr != null && jsonStr.length()>2) {
+            } else if (params != null) {
 //            if(jsonStr!=null){
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonStr);
-                    JSONArray params = jsonObject.getJSONArray("Available");
+
 //                if (params == null){
 //                    present_bit = 0;
 //                    Log.d(TAG, "Did it come here?");
