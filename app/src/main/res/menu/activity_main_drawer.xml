@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_maintenance"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Maintenance" />
+            android:title="Assets Info" />
         <item
             android:id="@+id/nav_livestream"
             android:icon="@drawable/ic_menu_manage"
