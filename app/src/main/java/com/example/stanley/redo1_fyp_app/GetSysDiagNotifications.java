@@ -128,6 +128,7 @@ public class GetSysDiagNotifications extends Service{
 //                        ParamRequest paramRequest = new ParamRequest(aa, ff, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(GetSysDiagNotifications.this);
                 queue.add(valuesRequest);
+                present_bit = 1;
 
             }
             return null;
