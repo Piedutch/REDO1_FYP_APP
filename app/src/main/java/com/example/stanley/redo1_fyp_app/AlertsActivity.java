@@ -25,6 +25,7 @@ import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import static com.example.stanley.redo1_fyp_app.Constants.GETTINGALERTS_URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class AlertsActivity extends AppCompatActivity{
 
     //URL of json
     // private static String url = "http://api.androidhive.info/contacts/";
-    private static String url = "http://128.199.75.229/alertspost.php";
+//    private static String url = "http://128.199.75.229/alertspost.php";
 
     ArrayList<HashMap<String, String>> contactList;
 
@@ -170,7 +171,7 @@ public class AlertsActivity extends AppCompatActivity{
         @Override
         protected Void doInBackground(Void... voids){
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(url);
+            String jsonStr = sh.makeServiceCall(GETTINGALERTS_URL);
             Log.e(TAG, "Response from url: "+ jsonStr);
 
             if(jsonStr != null){

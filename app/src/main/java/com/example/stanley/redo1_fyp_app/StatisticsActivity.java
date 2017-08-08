@@ -30,6 +30,8 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
+import static com.example.stanley.redo1_fyp_app.Constants.STATS_URL;
+import static com.example.stanley.redo1_fyp_app.Constants.DYNAMICCOUNT_URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,8 +48,8 @@ import java.util.List;
 public class StatisticsActivity extends SwipeBackActivity {
 
     private String TAG = StatisticsActivity.class.getSimpleName();
-    private String url = "http://128.199.75.229/piechart.php";
-    private String url1 = "http://128.199.75.229/current_count_of_alerts.php";
+//    private String url = "http://128.199.75.229/piechart.php";
+//    private String url1 = "http://128.199.75.229/current_count_of_alerts.php";
     private String item_name, date;
     private int no_of_alerts;
     TextView today_alerts;
@@ -94,7 +96,7 @@ public class StatisticsActivity extends SwipeBackActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(url);
+            String jsonStr = sh.makeServiceCall(STATS_URL);
             allitem_name = new ArrayList<String>();
             allfrequency = new ArrayList<Integer>();
             resultcount = 0;
@@ -152,7 +154,7 @@ public class StatisticsActivity extends SwipeBackActivity {
             setData(yValstosetdata, xVals);
 
             HttpHandler sh1 = new HttpHandler();
-            String jsonStr1 = sh1.makeServiceCall(url1);
+            String jsonStr1 = sh1.makeServiceCall(DYNAMICCOUNT_URL);
             Log.e(TAG, "Response from url: " + jsonStr1);
 
             if (jsonStr1 != null) {

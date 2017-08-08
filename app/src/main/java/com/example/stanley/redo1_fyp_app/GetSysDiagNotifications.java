@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import static com.example.stanley.redo1_fyp_app.Constants.RETRIEVEFORSYSDIAGNOTIF_URL;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,7 +27,7 @@ public class GetSysDiagNotifications extends Service{
     private JSONArray params;
     // random value for initialization
     private int present_bit = 1;
-    private static String urlParams = "http://128.199.75.229/get_pi_status.php";
+//    private static String urlParams = "http://128.199.75.229/get_pi_status.php";
     private int counter = 0;
     public void onCreate() {
     }
@@ -66,7 +67,7 @@ public class GetSysDiagNotifications extends Service{
         @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(urlParams);
+            String jsonStr = sh.makeServiceCall(RETRIEVEFORSYSDIAGNOTIF_URL);
             Log.e(TAG, "Response from url: " + jsonStr);
             try{
                 JSONObject jsonObject = new JSONObject(jsonStr);

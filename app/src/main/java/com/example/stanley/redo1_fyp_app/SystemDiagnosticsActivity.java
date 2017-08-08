@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import static com.example.stanley.redo1_fyp_app.Constants.SYSDIAG_URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +31,7 @@ import java.util.Date;
 public class SystemDiagnosticsActivity extends AppCompatActivity {
 
     private String TAG = SystemDiagnosticsActivity.class.getSimpleName();
-    private static String urlParams = "http://128.199.75.229/status_app.php";
+//    private static String urlParams = "http://128.199.75.229/status_app.php";
     private ImageView tempStatus_status, cameraStatus_status, armStatus_status, gpuStatus_status;
     private TextView tempStatus_tv, cameraStatus_tv, armStatus_tv, gpuStatus_tv;
     private String tempInput, cameraInput, armInput, gpuInput;
@@ -77,7 +78,7 @@ public class SystemDiagnosticsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(urlParams);
+            String jsonStr = sh.makeServiceCall(SYSDIAG_URL);
             Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {

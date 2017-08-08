@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import static com.example.stanley.redo1_fyp_app.Constants.RETRIEVEFORNOTIF_URL;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,7 +32,7 @@ public class GetNotifications extends Service {
     private String item_name;
     private String asset_no;
     private Handler handler;
-    private static String urlParams = "http://128.199.75.229/getlastrow.php";
+//    private static String urlParams = "http://128.199.75.229/getlastrow.php";
     private int counter = 0;
     public void onCreate() {
         isRunning = true;
@@ -76,7 +77,7 @@ public class GetNotifications extends Service {
         protected Void doInBackground(Void... voids) {
             Log.d(TAG, "Initial Counter Value supposed to be 0, it is: " +counter);
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(urlParams);
+            String jsonStr = sh.makeServiceCall(RETRIEVEFORNOTIF_URL);
             Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {

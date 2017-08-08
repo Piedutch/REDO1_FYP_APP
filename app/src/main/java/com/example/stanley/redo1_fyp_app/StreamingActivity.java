@@ -28,16 +28,16 @@ public class StreamingActivity extends SwipeBackActivity
         mWebView.getSettings().setJavaScriptEnabled(true);
         //mWebView.loadUrl("http://10.10.10.65:8081/");
         mWebView.loadUrl("http://175.156.209.207:8081/");
-        mWebView.setWebViewClient(new MyWebViewClient());
+//        mWebView.setWebViewClient(new MyWebViewClient());
 
     }
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public void onReceivedHttpAuthRequest(WebView view,
-                                              HttpAuthHandler handler, String host, String realm) {
-
-            handler.proceed("pi", "1qwer$#@!");
-
-        }
-    }
+//    private class MyWebViewClient extends WebViewClient {
+//        @Override
+//        public void onReceivedHttpAuthRequest(WebView view,
+//                                              HttpAuthHandler handler, String host, String realm) {
+//
+//            handler.proceed("pi", "1qwer$#@!");
+//
+//        }
+//    }
 }

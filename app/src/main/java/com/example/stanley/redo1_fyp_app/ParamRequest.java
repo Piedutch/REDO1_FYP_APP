@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import static com.example.stanley.redo1_fyp_app.Constants.ALERTNOTIFICATIONS_URL;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,11 +16,10 @@ import java.util.Map;
 public class ParamRequest extends StringRequest {
 
     //    private static final String PARAM_REQUEST_URL = "http://128.199.75.229/push_notification_trial.php";
-    private static final String PARAM_REQUEST_URL = "http://128.199.75.229/push_notification.php";
     private Map<String, String> params;
 
     public ParamRequest(String item_name, String asset_no, String token, Response.Listener<String> listener){
-        super(Method.POST, PARAM_REQUEST_URL, listener, null);
+        super(Method.POST, ALERTNOTIFICATIONS_URL, listener, null);
         Log.d("DEBUG","I am in ParamRequest");
         params = new HashMap<>();
         params.put("item_name", item_name);

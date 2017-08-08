@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import static com.example.stanley.redo1_fyp_app.Constants.MAINTENANCEMODE_URL;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -67,7 +68,7 @@ public class MaintenanceMode extends AppCompatActivity
     private EventsData events;
 
     //URL of json
-    private static String url = "http://128.199.75.229/items.php";
+//    private static String url = "http://128.199.75.229/items.php";
 
 
     ArrayList<HashMap<String, String>> contactList;
@@ -248,7 +249,7 @@ public class MaintenanceMode extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... voids){
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(url);
+            String jsonStr = sh.makeServiceCall(MAINTENANCEMODE_URL);
             Log.e(TAG, "Response from url: "+ jsonStr);
 
             if(jsonStr != null){

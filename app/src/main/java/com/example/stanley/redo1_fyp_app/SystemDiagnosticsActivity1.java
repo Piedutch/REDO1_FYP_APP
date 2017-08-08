@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import static com.example.stanley.redo1_fyp_app.Constants.SYSDIAG_URL;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,7 +30,7 @@ public class SystemDiagnosticsActivity1 extends AppCompatActivity
 
     private String TAG = SystemDiagnosticsActivity1.class.getSimpleName();
 
-    private static String urlParams = "http://128.199.75.229/status_app.php";
+//    private static String urlParams = "http://128.199.75.229/status_app.php";
     private ImageView tempStatus_status, cameraStatus_status, armStatus_status, gpuStatus_status;
     private TextView tempStatus_tv, cameraStatus_tv, armStatus_tv, gpuStatus_tv;
     private String tempInput, cameraInput, armInput, gpuInput;
@@ -37,7 +38,7 @@ public class SystemDiagnosticsActivity1 extends AppCompatActivity
     private EventsData events;
 
     //URL of json
-    private static String url = "http://128.199.75.229/items.php";
+//    private static String url = "http://128.199.75.229/items.php";
 
 
     private SimpleAdapter adapter;
@@ -137,7 +138,7 @@ public class SystemDiagnosticsActivity1 extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(urlParams);
+            String jsonStr = sh.makeServiceCall(SYSDIAG_URL);
             Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
