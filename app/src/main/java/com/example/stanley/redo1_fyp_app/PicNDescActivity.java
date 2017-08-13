@@ -102,7 +102,7 @@ public class PicNDescActivity extends SwipeBackActivity {
         timestamp.setText(time_date);
 
 
-        new PicNDescActivity.GetContacts().execute();
+       // new PicNDescActivity.GetContacts().execute();
 
     }
     private class GetContacts extends AsyncTask<Void, Void, Void>{

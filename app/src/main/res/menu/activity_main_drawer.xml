@@ -4,23 +4,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_home_drawer"
             android:title="Home" />
         <item
             android:id="@+id/nav_alerts"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_alert_drawer"
             android:title="Alerts" />
         <item
             android:id="@+id/nav_archivedalerts"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_archivealert_drawer"
             android:title="Archived Alerts" />
         <item
             android:id="@+id/nav_maintenance"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@mipmap/ic_assetsinfo_drawer"
             android:title="Assets Info" />
         <item
             android:id="@+id/nav_livestream"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@mipmap/ic_livestream_drawer"
             android:title="Live Stream" />
     </group>
 
@@ -28,15 +28,15 @@
         <menu>
             <item
                 android:id="@+id/nav_systemdiag"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@mipmap/ic_sysdiag_drawer"
                 android:title="System Diagnostics" />
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@mipmap/ic_settings_drawer"
                 android:title="Settings" />
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@mipmap/ic_about_drawer"
                 android:title="About" />
         </menu>
     </item>
