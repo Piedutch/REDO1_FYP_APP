@@ -51,8 +51,8 @@ public class PicNDescActivity_Archive extends SwipeBackActivity {
         }c.close();
         db.close();
 
-        /*Bitmap decoded = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-        imageView.setImageBitmap(decoded);*/
+        Bitmap decoded = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        imageView.setImageBitmap(decoded);
 
         String time_date = date1+"   "+timestamp1;
 
